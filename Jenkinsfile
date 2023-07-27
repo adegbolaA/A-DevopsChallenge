@@ -1,4 +1,6 @@
 @Library('my-shared-library') _
+buildJavaApp("/var/lib/jenkins/workspace/Java-App-Pipeline/ChallengePackage/demo")
+
 
 pipeline{
     agent any
