@@ -1,3 +1,5 @@
+@Library('my-shared-libary') _
+
 pipeline{
     agent any
 
@@ -8,7 +10,11 @@ pipeline{
             steps{
 
                 script{
-                     git branch: 'main', url: 'https://github.com/adegbolaA/A-DevopsChallenge.git'
+                     gitCheckout(
+                        branch: "main",
+                        url: 'https://github.com/adegbolaA/A-DevopsChallenge.git'
+                     )
+                    
                  }
 
             }
