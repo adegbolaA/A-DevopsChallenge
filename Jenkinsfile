@@ -110,7 +110,7 @@ pipeline{
             steps{
 
                 script{
-                    dockerBuild("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
+                    dockerImageScan("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
               }
 
             }
