@@ -144,7 +144,7 @@ pipeline{
            
         }
 
-            //Image Cleanup
+        //Image Cleanup
          stage ('Docker Image Cleanup: ECR'){
          when {expression { params.action == 'create' }}
             steps{
