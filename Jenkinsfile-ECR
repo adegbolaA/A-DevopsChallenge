@@ -132,14 +132,10 @@ pipeline{
 
          steps {
 
-            withCredentials([[
-                $class: 'AmzonWebServicesCredentialsBinding',
-                credentialsId: 'aws-id',
-                accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
+         
                     sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin "$ECR_REGISTRY"'
                     sh 'docker push "$ECR_REGISTRY/$APP_REPO_NAME:latest"'
-                }
+                
             }
         
             // steps{
