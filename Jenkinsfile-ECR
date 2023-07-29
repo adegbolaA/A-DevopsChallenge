@@ -5,6 +5,11 @@
 pipeline{
     agent any
 
+     environment {
+        ECR_REGISTRY = "908459128553.dkr.ecr.us-east-1.amazonaws.com"
+        APP_REPO_NAME= "java-app"
+    }
+
     parameters{
         choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
         string(name: 'ImageName', description: "Name of the docker build", defaultValue: 'javaapp')
@@ -124,13 +129,18 @@ pipeline{
 
         stage ('Docker Image Push: ECR'){
          when {expression { params.action == 'create' }}
-            steps{
 
-                script{
-                    dockerImagePushECR("${params.aws_account_id}","${params.Region}","${params.ECR_REPO_NAME}")
-              }
-
+         steps {
+                sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin "$ECR_REGISTRY"'
+                sh 'docker push "$ECR_REGISTRY/$APP_REPO_NAME:latest"'
             }
+            // steps{
+
+            //     script{
+            //         dockerImagePushECR("${params.aws_account_id}","${params.Region}","${params.ECR_REPO_NAME}")
+            //   }
+
+            // }
            
         }
 
