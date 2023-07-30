@@ -141,7 +141,8 @@ pipeline{
            
         }
 
-        stage ('Deploy: K8'){
+
+      /*   stage ('SSH Into k8s Server'){
          when {expression { params.action == 'create' }}
             steps{
 
@@ -149,6 +150,18 @@ pipeline{
                     kubernetesDeploy(configs: "deployment.yaml", kubeconfigId: "kubernetes")
               }
 
+            }
+           
+        } */
+
+        stage ('Deploy: K8'){
+         when {expression { params.action == 'create' }}
+        
+            withCredentials([usernamePassword(credentialsId: 'vagrant', passwordVariable: 'Master', usernameVariable: 'Master')]) {
+            def remote = [:]
+            remote.name = 'K8 Master'
+            remote.host = '52.14.66.109'
+            remote.allowAnyHosts = true
             }
            
         }
