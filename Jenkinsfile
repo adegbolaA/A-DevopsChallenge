@@ -146,7 +146,7 @@ pipeline{
             steps{
 
                 script{
-                    kubernetesDeploy(configs: "A-DevopsChallange/deployment.yaml", kubeconfigId: "kubernetes")
+                    kubernetesDeploy(configs: "deployment.yaml", kubeconfigId: "kubernetes")
               }
 
             }
