@@ -129,12 +129,24 @@ pipeline{
            
         }
 
-         stage ('Docker Image Cleanup: DockerHub'){
+        stage ('Docker Image Cleanup: DockerHub'){
          when {expression { params.action == 'create' }}
             steps{
 
                 script{
                     dockerImageCleanUp("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
+              }
+
+            }
+           
+        }
+
+        stage ('Deploy: K8'){
+         when {expression { params.action == 'create' }}
+            steps{
+
+                script{
+                    kubernetesDeploy(configs: "deployment.yaml", kubeconfigId: "kubernetes")
               }
 
             }
