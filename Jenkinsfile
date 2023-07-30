@@ -156,13 +156,13 @@ pipeline{
 
         stage ('Deploy: K8'){
          when {expression { params.action == 'create' }}
-        
-            withCredentials([usernamePassword(credentialsId: 'vagrant', passwordVariable: 'Master', usernameVariable: 'Master')]) {
             def remote = [:]
             remote.name = 'K8 Master'
             remote.host = '52.14.66.109'
+            remote.user = 'vagrant'
+            remote.password = 'vagrant'
             remote.allowAnyHosts = true
-            }
+    
            
         }
 
