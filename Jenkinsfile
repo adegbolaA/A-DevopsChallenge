@@ -145,7 +145,7 @@ pipeline{
            
         }
 
-   /*      stage ('Install kubectl'){
+         stage ('Install kubectl'){
          when {expression { params.action == 'create' }}
             steps{
 
@@ -159,10 +159,10 @@ pipeline{
 
             }
            
-        } */
+        } 
 
 
-       /*  stage ('Deploy'){
+         stage ('Deploy'){
          when {expression { params.action == 'create' }}
             steps{
 
@@ -172,7 +172,7 @@ pipeline{
                     withEnv(["KUBECONFIG=$KUBECONFIG"]) {
                       
                            env.PATH = "$HOME/bin:${env.PATH}"
-                        sh 'kubectl apply -f deployment.yaml'
+                           sh 'kubectl apply -f deployment.yaml'
                         
                     }
                   
@@ -182,11 +182,11 @@ pipeline{
 
             }
            
-        } */
+        } 
 
 
 
-        stage ('Deploy'){
+       /*  stage ('Deploy'){
          when {expression { params.action == 'create' }}
             steps{
 
@@ -197,7 +197,7 @@ pipeline{
             }
            
         } 
-
+ */
 
 
 
