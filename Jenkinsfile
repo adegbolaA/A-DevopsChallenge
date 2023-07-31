@@ -5,6 +5,7 @@
 pipeline{
     environment {
         KUBECONFIG = "/home/ec2-user/.kube/config"
+        KUBECONFIG = credentials('kubeconfig-credential-id')
     }
 
     agent any
@@ -168,13 +169,14 @@ pipeline{
 
                 script{
                    
+                   sh "kubectl --kubeconfig $KUBECONFIG apply -f deployment.yaml"
 
-                    withEnv(["KUBECONFIG=$KUBECONFIG"]) {
+                    /* withEnv(["KUBECONFIG=$KUBECONFIG"]) {
                       
                            env.PATH = "$HOME/bin:${env.PATH}"
                            sh 'kubectl apply -f deployment.yaml'
                         
-                    }
+                    } */
                   
                    
               }
