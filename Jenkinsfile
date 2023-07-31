@@ -186,7 +186,7 @@ pipeline{
 
 
 
-        stage ('SSH Into k8s Server'){
+        stage ('Deploy'){
          when {expression { params.action == 'create' }}
             steps{
 
