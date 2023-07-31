@@ -145,7 +145,7 @@ pipeline{
            
         }
 
-        stage ('Install kubectl'){
+   /*      stage ('Install kubectl'){
          when {expression { params.action == 'create' }}
             steps{
 
@@ -159,10 +159,10 @@ pipeline{
 
             }
            
-        }
+        } */
 
 
-        stage ('Deploy'){
+       /*  stage ('Deploy'){
          when {expression { params.action == 'create' }}
             steps{
 
@@ -182,21 +182,21 @@ pipeline{
 
             }
            
-        }
+        } */
 
 
 
-      /*   stage ('SSH Into k8s Server'){
+        stage ('SSH Into k8s Server'){
          when {expression { params.action == 'create' }}
             steps{
 
                 script{
-                    kubernetesDeploy(configs: "deployment.yaml", kubeconfigId: "kubernetes")
+                  kubernetesDeploy (configs: 'deployment.yaml', kubeconfigId: 'kube')
               }
 
             }
            
-        } */
+        } 
 
 
 
