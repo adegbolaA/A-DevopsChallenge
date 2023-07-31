@@ -4,7 +4,7 @@
 
 pipeline{
     environment {
-        KUBECONFIG = "/var/lib/jenkins/.kube/config"
+        KUBECONFIG = "~/kubeconfig"
     }
 
     agent any
@@ -167,13 +167,13 @@ pipeline{
             steps{
 
                 script{
-                      env.PATH = "$HOME/bin:${env.PATH}"
+                   
 
                     withEnv(["KUBECONFIG=$KUBECONFIG"]) {
-                        // Your pipeline steps that use kubectl go here
-                        sh 'kubectl get pods'
+                      
+                           env.PATH = "$HOME/bin:${env.PATH}"
                         sh 'kubectl apply -f deployment.yaml'
-                        // Add more kubectl commands or deployment steps as needed
+                        
                     }
                   
                    
