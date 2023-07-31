@@ -9,37 +9,47 @@ public class App {
             System.out.println("Welcome to the Temperature Conversion Problem Checker!");
 
             // Get input from the teacher
-            System.out.print("Enter the input numerical value (default: 0): ");
+            System.out.print("Enter the input numerical value: ");
             double inputNumericalValue;
-            try {
+            if (scanner.hasNextLine()) {
                 inputNumericalValue = Double.parseDouble(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                inputNumericalValue = 0.0; // Use a default value if input cannot be parsed
+            } else {
+                inputNumericalValue = 0.0; // Use a default value if no input provided
             }
 
             System.out.print("Enter the input unit of measure (Kelvin, Celsius, Fahrenheit, Rankine): ");
-            String inputUnitOfMeasure = scanner.nextLine();
+            String inputUnitOfMeasure;
+            if (scanner.hasNextLine()) {
+                inputUnitOfMeasure = scanner.nextLine();
+            } else {
+                inputUnitOfMeasure = "Kelvin"; // Use a default value if no input provided
+            }
 
             System.out.print("Enter the target unit of measure (Kelvin, Celsius, Fahrenheit, Rankine): ");
-            String targetUnitOfMeasure = scanner.nextLine();
+            String targetUnitOfMeasure;
+            if (scanner.hasNextLine()) {
+                targetUnitOfMeasure = scanner.nextLine();
+            } else {
+                targetUnitOfMeasure = "Celsius"; // Use a default value if no input provided
+            }
 
             ConversionProblem problem = new ConversionProblem(inputNumericalValue, inputUnitOfMeasure,
                     targetUnitOfMeasure);
 
             // Get student's response
-            System.out.print("Enter the student's numeric response (default: 0): ");
+            System.out.print("Enter the student's numeric response: ");
             double studentResponse;
-            try {
+            if (scanner.hasNextLine()) {
                 studentResponse = Double.parseDouble(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                studentResponse = 0.0; // Use a default value if student's response cannot be parsed
+            } else {
+                studentResponse = 0.0; // Use a default value if no input provided
             }
 
             // Check student's response
             String result = problem.checkResponse(studentResponse);
             System.out.println("Result: " + result);
 
-            // Don't close the scanner here
+            scanner.close();
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a valid numerical value.");
         } catch (IllegalArgumentException e) {
