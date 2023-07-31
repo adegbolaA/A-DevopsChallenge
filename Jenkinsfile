@@ -8,7 +8,12 @@ pipeline{
         KUBECONFIG = credentials('kubeconfig-credential-id')
     }
 
-    agent any
+    agent {
+        docker {
+            image 'jenkins/inbound-agent'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
 
     parameters{
         choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
