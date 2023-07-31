@@ -8,7 +8,7 @@ pipeline{
         KUBECONFIG = credentials('kubeconfig-credential-id')
     }
 
-    agent {
+    agent any {
         docker {
             image 'jenkins/inbound-agent'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
