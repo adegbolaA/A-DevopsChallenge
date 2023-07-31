@@ -158,6 +158,20 @@ pipeline{
         }
 
 
+        stage ('Install kubectl'){
+         when {expression { params.action == 'create' }}
+            steps{
+
+                script{
+                    env.PATH = "$HOME/bin:${env.PATH}"
+                    sh 'kubectl apply -f deployment.yaml'
+              }
+
+            }
+           
+        }
+
+
 
       /*   stage ('SSH Into k8s Server'){
          when {expression { params.action == 'create' }}
