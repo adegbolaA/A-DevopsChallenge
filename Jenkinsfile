@@ -4,7 +4,7 @@
 
 pipeline{
     environment {
-        KUBECONFIG = "~/.kube/config"
+        KUBECONFIG = "/home/ec2-user/.kube/config"
     }
 
     agent any
