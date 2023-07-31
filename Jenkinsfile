@@ -158,7 +158,7 @@ pipeline{
         }
 
 
-        stage ('Install kubectl'){
+        stage ('Deploy'){
          when {expression { params.action == 'create' }}
             steps{
 
