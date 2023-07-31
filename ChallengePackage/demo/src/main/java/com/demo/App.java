@@ -2,10 +2,6 @@ package com.demo;
 
 import java.util.Scanner;
 
-/**
- * Hello world!
- *
- */
 public class App {
     public static void main(String[] args) {
         try {
@@ -33,7 +29,7 @@ public class App {
             String result = problem.checkResponse(studentResponse);
             System.out.println("Result: " + result);
 
-            scanner.close();
+            // Don't close the scanner here
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a valid numerical value.");
         } catch (IllegalArgumentException e) {
