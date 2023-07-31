@@ -6,10 +6,10 @@ public class App {
     public static void main(String[] args) {
         try {
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Welcome to the Temperature Conversion Problem Checker!");
+            System.out.print("Welcome to the Temperature Conversion Problem Checker!\n");
 
             // Get input from the teacher
-            System.out.print("Enter the input numerical value: ");
+            System.out.print("Enter the input numerical value (default: 0): ");
             double inputNumericalValue;
             if (scanner.hasNextLine()) {
                 inputNumericalValue = Double.parseDouble(scanner.nextLine());
