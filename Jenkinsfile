@@ -4,7 +4,7 @@
 
 pipeline{
     environment {
-        KUBECONFIG = "/home/ec2-user/.kube/config"
+        //KUBECONFIG = "/home/ec2-user/.kube/config"
         KUBECONFIG = credentials('kubeconfig-credential-id')
     }
 
