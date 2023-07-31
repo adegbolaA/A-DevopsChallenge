@@ -12,5 +12,5 @@ LABEL app.version="1.0.0"
 ENV APP_NAME="My Java App"
 
 # Run the application when the container starts
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "demo-1.1.jar"]
 
