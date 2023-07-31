@@ -9,8 +9,13 @@ public class App {
             System.out.println("Welcome to the Temperature Conversion Problem Checker!");
 
             // Get input from the teacher
-            System.out.print("Enter the input numerical value: ");
-            double inputNumericalValue = Double.parseDouble(scanner.nextLine());
+            System.out.print("Enter the input numerical value (default: 0): ");
+            double inputNumericalValue;
+            try {
+                inputNumericalValue = Double.parseDouble(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                inputNumericalValue = 0.0; // Use a default value if input cannot be parsed
+            }
 
             System.out.print("Enter the input unit of measure (Kelvin, Celsius, Fahrenheit, Rankine): ");
             String inputUnitOfMeasure = scanner.nextLine();
@@ -22,8 +27,13 @@ public class App {
                     targetUnitOfMeasure);
 
             // Get student's response
-            System.out.print("Enter the student's numeric response: ");
-            double studentResponse = Double.parseDouble(scanner.nextLine());
+            System.out.print("Enter the student's numeric response (default: 0): ");
+            double studentResponse;
+            try {
+                studentResponse = Double.parseDouble(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                studentResponse = 0.0; // Use a default value if student's response cannot be parsed
+            }
 
             // Check student's response
             String result = problem.checkResponse(studentResponse);
