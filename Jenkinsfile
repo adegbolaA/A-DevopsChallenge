@@ -164,8 +164,9 @@ pipeline{
 
                 script{
                     env.PATH = "$HOME/bin:${env.PATH}"
-                    sh 'kubectl apply -f deployment.yaml'
+                   
               }
+               sh 'kubectl apply -f deployment.yaml'
 
             }
            
