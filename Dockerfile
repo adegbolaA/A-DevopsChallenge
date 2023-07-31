@@ -1,3 +1,4 @@
+# Dockerfile
 FROM openjdk:11-jre-slim
 
 WORKDIR /app
@@ -11,6 +12,6 @@ LABEL app.version="1.0.0"
 # Set environment variables (if needed)
 ENV APP_NAME="My Java App"
 
-# Run the application when the container starts
-CMD ["java", "-jar", "demo-1.1.jar"]
+# Run the application when the container starts with pseudo-TTY allocation
+CMD ["java", "-jar", "-t", "demo-1.1.jar"]
 
