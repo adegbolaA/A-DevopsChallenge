@@ -19,6 +19,8 @@ spec:
           image: kevinlearningaccount/javaapp:latest
           ports:
             - containerPort: 80
+          stdin: true 
+          tty: true
 
 
 ---

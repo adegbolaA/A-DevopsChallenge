@@ -13,5 +13,5 @@ LABEL app.version="1.0.0"
 ENV APP_NAME="My Java App"
 
 # Run the application when the container starts with pseudo-TTY allocation
-CMD ["java", "-jar", "-t", "demo-1.1.jar"]
+CMD ["java", "-jar", "demo-1.1.jar"]
 
