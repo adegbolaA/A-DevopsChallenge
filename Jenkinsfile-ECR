@@ -14,7 +14,7 @@ pipeline{
         string(name: 'aws_account_id', description: "AWS Account ID", defaultValue: '908459128553')
         string(name: 'Region', description: "Tag of the docker build", defaultValue: 'us-east-2')
         string(name: 'ECR_REPO_NAME', description: "Name of the Application", defaultValue: 'java-app')
-        string(name: 'Cluster', description: "EKS Cluster Name", defaultValue: 'conversionapp-cluster')
+        /* string(name: 'Cluster', description: "EKS Cluster Name", defaultValue: 'conversionapp-cluster') */
     }
 
 
@@ -176,7 +176,7 @@ pipeline{
            
         }
 
-
+/* 
         stage ('Connection to EKS'){
          when {expression { params.action == 'create' }}
             steps{
@@ -192,7 +192,7 @@ pipeline{
 
             }
            
-        }
+        } */
       
 
 
