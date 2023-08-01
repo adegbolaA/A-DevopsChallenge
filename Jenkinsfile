@@ -4,7 +4,7 @@
 
 pipeline{
     environment {
-        //KUBECONFIG = "/home/ec2-user/.kube/config"
+        
         KUBECONFIG = credentials('kubeconfig-credential-id')
     }
 
@@ -146,7 +146,7 @@ pipeline{
            
         }
 
-         stage ('Install kubectl'){
+/*          stage ('Install kubectl'){
          when {expression { params.action == 'create' }}
             steps{
 
@@ -161,45 +161,24 @@ pipeline{
             }
            
         } 
+ */
 
-
-         stage ('Deploy'){
+        stage ('Deploy'){
          when {expression { params.action == 'create' }}
             steps{
 
                 script{
                    
-                   sh "kubectl --kubeconfig $KUBECONFIG apply -f deployment.yaml"
-
-                    /* withEnv(["KUBECONFIG=$KUBECONFIG"]) {
-                      
-                           env.PATH = "$HOME/bin:${env.PATH}"
-                           sh 'kubectl apply -f deployment.yaml'
-                        
-                    } */
-                  
-                   
+                   sh "kubectl --kubeconfig $KUBECONFIG apply -f deployment.yaml"                  
               }
              
-
             }
-           
+          
         } 
+    
 
 
 
-       /*  stage ('Deploy'){
-         when {expression { params.action == 'create' }}
-            steps{
-
-                script{
-                  kubernetesDeploy (configs: 'deployment.yaml', kubeconfigId: 'kube')
-              }
-
-            }
-           
-        } 
- */
 
 
 

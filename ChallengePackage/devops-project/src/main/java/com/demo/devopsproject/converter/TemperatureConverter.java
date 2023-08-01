@@ -1,15 +1,15 @@
-package com.demo.converter;
+package com.demo.devopsproject.converter;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class TemperatureConverter {
-
-    // TemperatureConverter utility class
-
-    public static double convert(double value, String fromUnit, String toUnit) {
+    public double convert(double value, String fromUnit, String toUnit) {
         double convertedFromValue = convertToCelsius(value, fromUnit);
         return convertFromCelsius(convertedFromValue, toUnit);
     }
 
-    private static double convertToCelsius(double value, String fromUnit) {
+    private double convertToCelsius(double value, String fromUnit) {
         switch (fromUnit.toUpperCase()) {
             case "KELVIN":
                 return value - 273.15;
@@ -24,7 +24,7 @@ public class TemperatureConverter {
         }
     }
 
-    private static double convertFromCelsius(double value, String toUnit) {
+    private double convertFromCelsius(double value, String toUnit) {
         switch (toUnit.toUpperCase()) {
             case "KELVIN":
                 return value + 273.15;
@@ -38,5 +38,4 @@ public class TemperatureConverter {
                 throw new IllegalArgumentException("Unsupported target unit of measure: " + toUnit);
         }
     }
-
 }

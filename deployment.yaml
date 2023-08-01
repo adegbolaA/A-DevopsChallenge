@@ -18,7 +18,8 @@ spec:
         - name: java-app-container
           image: kevinlearningaccount/javaapp:latest
           ports:
-            - containerPort: 80
+            - containerPort: 8080
+
 
 
 ---
