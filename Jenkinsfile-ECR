@@ -194,6 +194,34 @@ pipeline{
            
         } 
       
+        stage ('Deploy to EKS'){
+         when {expression { params.action == 'create' }}
+            steps{
+
+                script{
+
+                        def apply = false
+
+                        try{
+                            input message: "Confirm Deploy to PRODUCTION", ok: 'Ready to apply the Config ?'
+                            apply = true
+                        }catch(err){
+                            apply=false
+                            /* jenkins variable */
+                            currentBuild.result = 'UNSTABLE'
+                        }
+                        if(apply){
+                            sh """
+                                kubectl apply -f deployment-service-eks.yml
+                            """
+                        }
+                   
+              }
+
+            }
+           
+        } 
+      
 
 
 
