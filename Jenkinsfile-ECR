@@ -22,9 +22,9 @@ pipeline{
         ACCESS_KEY = credentials('AWS_ACCESS_KEY_ID')
         SECRET_KEY = credentials('AWS_SECRET_KEY_ID')
 
-        AWS_ACCESS_KEY_ID     = credentials('my-aws-creds').AWS_ACCESS_KEY_ID
-        AWS_SECRET_ACCESS_KEY = credentials('my-aws-creds').AWS_SECRET_ACCESS_KEY
-        AWS_ROLE_ARN          = credentials('my-aws-creds').AWS_ROLE_ARN
+        AWS_ACCESS_KEY_ID = ''
+        AWS_SECRET_ACCESS_KEY = ''
+        AWS_ROLE_ARN = ''
     }
 
     stages{
@@ -162,6 +162,16 @@ pipeline{
         }
 
 
+         stage('Get AWS Credentials') {
+            steps {
+                script {
+                    def credentials = credentials('my-aws-creds')
+                    AWS_ACCESS_KEY_ID = credentials.AWS_ACCESS_KEY_ID
+                    AWS_SECRET_ACCESS_KEY = credentials.AWS_SECRET_ACCESS_KEY
+                    AWS_ROLE_ARN = credentials.AWS_ROLE_ARN
+                }
+            }
+        }
 
 
         stage ('EKS Cluster Creation: Terraform'){
@@ -169,11 +179,13 @@ pipeline{
             steps{
 
                 script{
-                    def credentials = credentials('my-aws-creds')
+                    withCredentials([
+                        string(credentialsId: 'my-aws-creds', variable: 'AWS_ACCESS_KEY_ID'),
+                        string(credentialsId: 'my-aws-creds', variable: 'AWS_SECRET_ACCESS_KEY'),
+                        string(credentialsId: 'my-aws-creds', variable: 'AWS_ROLE_ARN')
+                    ]){
 
-               
-                        withCredentials([string(credentialsId: credentials.id, variable: 'AWS_ROLE_ARN')]) {
-                                     dir('ekstf_module'){
+                         dir('ekstf_module'){
                                         sh """
                                               terraform init
                                               terraform plan
@@ -187,10 +199,9 @@ pipeline{
 
                                      }
 
+                    }
 
-                        }
-                      
-                    
+                   
               }
 
             }
