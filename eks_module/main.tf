@@ -51,7 +51,7 @@ module "aws_eks_cluster" {
     eks_cluster_name              = each.value.eks_cluster_name 
     subnet_ids                    = each.value.eks_subnet_ids
     tags                          = each.value.tags
-    security_group_id = each.value.security_group_id
+    security_group_id = var.security_group_id
 
 
 }
