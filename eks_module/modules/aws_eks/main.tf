@@ -3,7 +3,7 @@ resource "aws_security_group_rule" "eks_cluster_ingress_rule" {
   from_port   = 22  # The source port of incoming traffic (SSH port)
   to_port     = 22  # The destination port of incoming traffic (SSH port)
   protocol    = "tcp"  # The protocol for the incoming traffic (TCP)
-  security_group_id = [aws_security_group.eks_cluster_sg.id]
+  security_group_id = [var.security_group_id]
 
   # The source CIDR block for incoming traffic. 0.0.0.0/0 allows traffic from any IP address.
   cidr_blocks = ["0.0.0.0/0"]
