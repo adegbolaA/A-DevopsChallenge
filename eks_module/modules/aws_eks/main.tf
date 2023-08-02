@@ -1,12 +1,11 @@
-# Importing the `aws_security_group` resource from the other file
-data "terraform_remote_state" "security_group" {
-  backend = "local"  # You can change this to match your backend configuration
-
-  # Path to the state file of security_group.tf relative to the current working directory
-  config = {
-    path = "/home/ec2-user/A-DevopsChallenge/eks_module/securitygroup.tfstate"
-  }
+locals {
+  security_group_content = file("/home/ec2-user/A-DevopsChallenge/eks_module/securitygroup.tf")
 }
+
+locals {
+  eks_cluster_sg_id = regex("aws_security_group\\.eks_cluster_sg\\.id\\s*=\\s*\"([^\"]+)\"", local.security_group_content)[0]
+}
+
 
 
 
@@ -15,7 +14,7 @@ resource "aws_security_group_rule" "eks_cluster_ingress_rule" {
   from_port   = 22  # The source port of incoming traffic (SSH port)
   to_port     = 22  # The destination port of incoming traffic (SSH port)
   protocol    = "tcp"  # The protocol for the incoming traffic (TCP)
-  security_group_id = data.terraform_remote_state.security_group.outputs.eks_cluster_sg_id
+  security_group_id = [local.eks_cluster_sg_id]
 
   # The source CIDR block for incoming traffic. 0.0.0.0/0 allows traffic from any IP address.
   cidr_blocks = ["0.0.0.0/0"]
