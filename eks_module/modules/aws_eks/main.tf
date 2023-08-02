@@ -1,3 +1,47 @@
+# Create a security group resource
+resource "aws_security_group" "eks_cluster_sg" {
+  name_prefix = "eks-cluster-sg-"
+  vpc_id      = "vpc-0e6aa2cba5ad8fadd"
+
+  # Inbound rule for allowing SSH access from your IP
+  ingress {
+    from_port = 0
+    protocol  = "-1"
+    to_port   = 0
+    self = true
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 30000
+    to_port     = 32767
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    protocol    = "-1"
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+
+
 resource "aws_eks_cluster" "eks" {
   # Name of the cluster.
   name =  var.eks_cluster_name
@@ -9,27 +53,18 @@ resource "aws_eks_cluster" "eks" {
   # Desired Kubernetes master version
   version = "1.24"
 
-  vpc_config {
-    # Indicates whether or not the Amazon EKS private API server endpoint is enabled
+    vpc_config {
     endpoint_private_access = false
-
-    # Indicates whether or not the Amazon EKS public API server endpoint is enabled
-    endpoint_public_access = true
-
-    # Must be in at least two different availability zones
-    subnet_ids = var.subnet_ids
-    #   subnet_ids = [
-    #   aws_subnet.public_1.id,
-    #   aws_subnet.public_2.id,
-    #   aws_subnet.private_1.id,
-    #   aws_subnet.private_2.id
-    # ]
+    endpoint_public_access  = true
+    subnet_ids              = var.subnet_ids
+    security_group_ids      = [aws_security_group.eks_cluster_sg.id]  # Include the security group
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
   # Otherwise, EKS will not be able to properly delete EKS managed EC2 infrastructure such as Security Groups.
   depends_on = [
-    aws_iam_role_policy_attachment.amazon_eks_cluster_policy
+    aws_iam_role_policy_attachment.amazon_eks_cluster_policy,
+    aws_security_group_rule.eks_cluster_ingress_rule, 
   ]
   tags = var.tags
 }

@@ -1,3 +1,20 @@
+# Create a new key pair
+resource "aws_key_pair" "eks_key_pair" {
+  key_name   = "EKSKeyPair"  # Specify the name for your new key pair
+  public_key = tls_private_key.rsa.public_key_openssh
+}
+
+resource "tls_private_key" "rsa"{
+  algorithm = "RSA"
+  rsa_bits = 4096
+}
+
+resource "local_file" "eks_key"{
+  content = tls_private_key.rsa.private_key_pem
+  filename = "ekskey"
+}
+
+
 resource "aws_eks_node_group" "nodes_general" {
   # Name of the EKS Cluster.
   cluster_name = var.eks_cluster_name
@@ -44,6 +61,11 @@ resource "aws_eks_node_group" "nodes_general" {
 
   # Kubernetes version
   version = "1.24"
+
+  remote_access {
+    ec2_ssh_key = aws_key_pair.eks_key_pair.key_name
+    source_security_group_ids = [aws_security_group.eks_cluster_sg.id]
+  }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
   # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
