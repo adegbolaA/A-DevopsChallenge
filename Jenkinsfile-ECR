@@ -21,6 +21,10 @@ pipeline{
     environment{
         ACCESS_KEY = credentials('AWS_ACCESS_KEY_ID')
         SECRET_KEY = credentials('AWS_SECRET_KEY_ID')
+
+        AWS_ACCESS_KEY_ID     = credentials('my-aws-creds').AWS_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY = credentials('my-aws-creds').AWS_SECRET_ACCESS_KEY
+        AWS_ROLE_ARN          = credentials('my-aws-creds').AWS_ROLE_ARN
     }
 
     stages{
@@ -156,9 +160,34 @@ pipeline{
             }
            
         }
-      
+
+
+
 
         stage ('EKS Cluster Creation: Terraform'){
+         when {expression { params.action == 'create' }}
+            steps{
+
+                script{
+                    dir('ekstf_module'){
+                        sh """
+                            terraform init
+                            terraform plan
+                            aws sts assume-role --role-arn $AWS_ROLE_ARN --role-session-name TerraformSession --output json > assumed-role.json
+                            export AWS_ACCESS_KEY_ID=$(jq -r .Credentials.AccessKeyId assumed-role.json)
+                            export AWS_SECRET_ACCESS_KEY=$(jq -r .Credentials.SecretAccessKey assumed-role.json)
+                            export AWS_SESSION_TOKEN=$(jq -r .Credentials.SessionToken assumed-role.json)
+                            terraform apply -auto-approve'
+                        """
+                    }
+              }
+
+            }
+           
+        }
+      
+
+   /*      stage ('EKS Cluster Creation: Terraform'){
          when {expression { params.action == 'create' }}
             steps{
 
@@ -174,7 +203,7 @@ pipeline{
 
             }
            
-        }
+        } */
 
 
 /*         stage ('Connection to EKS'){
