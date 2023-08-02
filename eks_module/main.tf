@@ -43,18 +43,18 @@ resource "aws_security_group" "eks_cluster_sg" {
 
 
 module "aws_eks_cluster" {
-  source = "./modules/aws_eks"
+
+   source = "./modules/aws_eks"
   
-  for_each = var.aws_eks_cluster_config
+   for_each = var.aws_eks_cluster_config
 
-  eks_cluster_name = each.value.eks_cluster_name 
-  subnet_ids = each.value.eks_subnet_ids
-  tags = each.value.tags
+    eks_cluster_name              = each.value.eks_cluster_name 
+    subnet_ids                    = each.value.eks_subnet_ids
+    tags                          = each.value.tags
 
-  # Pass the security group ID as an input variable to the module
-  security_group_id = aws_security_group.eks_cluster_sg.id
+      # Pass the security group ID as an input variable to the module
+  security_group_id = var.security_group_id
 }
-
 
 module "aws_eks_node_group" {
 
