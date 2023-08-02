@@ -37,11 +37,7 @@ resource "aws_eks_cluster" "eks" {
   ]
   tags = var.tags
 
-  /*   # Associate the new key pair with the cluster
-  remote_access {
-    ec2_ssh_key            = aws_key_pair.eks_key_pair.key_name
-    source_security_group_ids = [aws_security_group.eks_cluster_sg.id]  
-  } */
+
 }
 
 resource "aws_iam_role" "eks_cluster" {

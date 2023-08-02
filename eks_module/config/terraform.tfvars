@@ -20,4 +20,4 @@ eks_node_group_config = {
   }
 }
 
-security_group_id = "sg-02b640c0cb81600f8"
+
