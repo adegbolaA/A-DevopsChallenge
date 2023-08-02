@@ -40,6 +40,17 @@ resource "aws_security_group" "eks_cluster_sg" {
   }
 }
 
+resource "aws_security_group_rule" "eks_cluster_ingress_rule" {
+  type        = "ingress"
+  from_port   = 22  # The source port of incoming traffic (SSH port)
+  to_port     = 22  # The destination port of incoming traffic (SSH port)
+  protocol    = "tcp"  # The protocol for the incoming traffic (TCP)
+  security_group_id = aws_security_group.eks_cluster_sg.id  # The ID of the security group
+
+  # The source CIDR block for incoming traffic. 0.0.0.0/0 allows traffic from any IP address.
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
 
 
 resource "aws_eks_cluster" "eks" {
@@ -68,11 +79,11 @@ resource "aws_eks_cluster" "eks" {
   ]
   tags = var.tags
 
-    # Associate the new key pair with the cluster
+  /*   # Associate the new key pair with the cluster
   remote_access {
     ec2_ssh_key            = aws_key_pair.eks_key_pair.key_name
     source_security_group_ids = [aws_security_group.eks_cluster_sg.id]  
-  }
+  } */
 }
 
 resource "aws_iam_role" "eks_cluster" {
