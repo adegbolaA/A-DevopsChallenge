@@ -179,7 +179,7 @@ pipeline{
         } 
 
 
-/*         stage ('Connection to EKS'){
+        stage ('Connection to EKS'){
          when {expression { params.action == 'create' }}
             steps{
 
@@ -194,9 +194,9 @@ pipeline{
 
             }
            
-        }  */
+        }  
       
-/*         stage ('Deploy to EKS'){
+        stage ('Deploy to EKS'){
          when {expression { params.action == 'create' }}
             steps{
 
@@ -210,8 +210,8 @@ pipeline{
                         }catch(err){
                             apply=false
                             /* jenkins variable */
-/*                             currentBuild.result = 'UNSTABLE' */
-/*                         }
+                            currentBuild.result = 'UNSTABLE' 
+                         }
                         if(apply){
                             sh """
                                 kubectl apply -f deployment-service-eks.yml
@@ -222,7 +222,7 @@ pipeline{
 
             }
            
-        }  */ 
+        }  
       
 
 
