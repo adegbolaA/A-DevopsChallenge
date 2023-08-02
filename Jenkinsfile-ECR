@@ -172,21 +172,18 @@ pipeline{
         }
 
 
-        stage ('EKS Cluster Creation: Terraform'){
-            environment {
-                TF_WORKSPACE = 'default' // Set your desired Terraform workspace here
+  stage('EKS Cluster Creation: Terraform') {
+            when {
+                expression { params.action == 'create' }
             }
-         when {expression { params.action == 'create' }}
-            steps{
-
-                 withCredentials([
-                    string(credentialsId: 'my-aws-creds', variable: 'AWS_ACCESS_KEY_ID'),
-                    string(credentialsId: 'my-aws-creds', variable: 'AWS_SECRET_ACCESS_KEY'),
-                    string(credentialsId: 'my-aws-creds', variable: 'AWS_ROLE_ARN')
-                ]){  
-
-                    dir('ekstf_module') {
-                        script {
+            steps {
+                script {
+                    withCredentials([
+                        string(credentialsId: 'my-aws-creds', variable: 'AWS_ACCESS_KEY_ID'),
+                        string(credentialsId: 'my-aws-creds', variable: 'AWS_SECRET_ACCESS_KEY'),
+                        string(credentialsId: 'my-aws-creds', variable: 'AWS_ROLE_ARN')
+                    ]) {
+                        dir('ekstf_module') {
                             sh """
                                 export AWS_ACCESS_KEY_ID='${env.AWS_ACCESS_KEY_ID}'
                                 export AWS_SECRET_ACCESS_KEY='${env.AWS_SECRET_ACCESS_KEY}'
@@ -202,14 +199,8 @@ pipeline{
                             """
                         }
                     }
-
-
-                 }
-
-                
-
+                }
             }
-           
         }
       
 
