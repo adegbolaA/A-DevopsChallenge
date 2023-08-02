@@ -1,16 +1,3 @@
-resource "aws_security_group_rule" "eks_cluster_ingress_rule" {
-  type        = "ingress"
-  from_port   = 22  # The source port of incoming traffic (SSH port)
-  to_port     = 22  # The destination port of incoming traffic (SSH port)
-  protocol    = "tcp"  # The protocol for the incoming traffic (TCP)
-  security_group_id = var.security_group_id
-
-  # The source CIDR block for incoming traffic. 0.0.0.0/0 allows traffic from any IP address.
-  cidr_blocks = ["0.0.0.0/0"]
-}
-
-
-
 resource "aws_eks_cluster" "eks" {
   # Name of the cluster.
   name =  var.eks_cluster_name
@@ -32,8 +19,7 @@ resource "aws_eks_cluster" "eks" {
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
   # Otherwise, EKS will not be able to properly delete EKS managed EC2 infrastructure such as Security Groups.
   depends_on = [
-    aws_iam_role_policy_attachment.amazon_eks_cluster_policy,
-    aws_security_group_rule.eks_cluster_ingress_rule, 
+    aws_iam_role_policy_attachment.amazon_eks_cluster_policy
   ]
   tags = var.tags
 
