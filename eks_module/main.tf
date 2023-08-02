@@ -52,8 +52,7 @@ module "aws_eks_cluster" {
     subnet_ids                    = each.value.eks_subnet_ids
     tags                          = each.value.tags
 
-      # Pass the security group ID as an input variable to the module
-  security_group_id = var.security_group_id
+
 }
 
 module "aws_eks_node_group" {
