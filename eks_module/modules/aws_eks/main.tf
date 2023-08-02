@@ -57,7 +57,7 @@ resource "aws_eks_cluster" "eks" {
     endpoint_private_access = false
     endpoint_public_access  = true
     subnet_ids              = var.subnet_ids
-    security_group_ids      = [aws_security_group.eks_cluster_sg.id]  # Include the security group
+    security_group_ids      = [aws_security_group.eks_cluster_sg.id]  
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
@@ -67,6 +67,12 @@ resource "aws_eks_cluster" "eks" {
     aws_security_group_rule.eks_cluster_ingress_rule, 
   ]
   tags = var.tags
+
+    # Associate the new key pair with the cluster
+  remote_access {
+    ec2_ssh_key            = aws_key_pair.eks_key_pair.key_name
+    source_security_group_ids = [aws_security_group.eks_cluster_sg.id]  
+  }
 }
 
 resource "aws_iam_role" "eks_cluster" {
