@@ -208,8 +208,8 @@ pipeline{
                         }catch(err){
                             apply=false
                             /* jenkins variable */
-                            currentBuild.result = 'UNSTABLE'
-                        }
+/*                             currentBuild.result = 'UNSTABLE' */
+/*                         }
                         if(apply){
                             sh """
                                 kubectl apply -f deployment-service-eks.yml
@@ -220,7 +220,7 @@ pipeline{
 
             }
            
-        }  */
+        }  */ 
       
 
 
