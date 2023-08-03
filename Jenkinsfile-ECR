@@ -169,7 +169,7 @@ pipeline{
                         sh """
                             terraform init
                             terraform plan -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=${params.Region}' --var-file=./config/terraform.tfvars
-                            terraform apply -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=${params.Region}' --var-file=./config/terraform.tfvars --auto-approve 
+                            terraform destroy -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=${params.Region}' --var-file=./config/terraform.tfvars --auto-approve 
                         """
                     }
               }
@@ -179,7 +179,7 @@ pipeline{
         } 
 
 
-        stage ('Connection to EKS'){
+    /*     stage ('Connection to EKS'){
          when {expression { params.action == 'create' }}
             steps{
 
@@ -194,9 +194,9 @@ pipeline{
 
             }
            
-        }  
+        } */  
       
-        stage ('Deploy to EKS'){
+   /*      stage ('Deploy to EKS'){
          when {expression { params.action == 'create' }}
             steps{
 
@@ -210,19 +210,19 @@ pipeline{
                         }catch(err){
                             apply=false
                             /* jenkins variable */
-                            currentBuild.result = 'UNSTABLE' 
-                         }
+                          /*   currentBuild.result = 'UNSTABLE'  */
+                  /*        }
                         if(apply){
                             sh """
                                 kubectl apply -f deployment-service-eks.yml
                             """
                         }
                    
-              }
+              } */
 
-            }
-           
-        }  
+          /*   }
+            */
+    /*     }  */  
       
 
 
