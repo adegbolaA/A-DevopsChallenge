@@ -52,7 +52,6 @@ resource "aws_iam_role" "eks_worker_node" {
         Effect = "Allow"
         Principal = {
           Service = "ec2.amazonaws.com"
-          AWS     = "eks.amazonaws.com"
         }
       }
     ]
@@ -60,6 +59,32 @@ resource "aws_iam_role" "eks_worker_node" {
 
   # Attach the AmazonEKSClusterPolicy to the IAM role
   managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"]
+
+  # Inline policy to allow nodes to join the EKS cluster
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "eks:DescribeCluster"
+          "eks:DescribeUpdate"
+          "eks:ListNodegroups"
+          "eks:CreateNodegroup"
+          "eks:DeleteNodegroup"
+          "eks:TagResource"
+          "eks:UntagResource"
+          "autoscaling:DescribeAutoScalingGroups"
+          "autoscaling:DescribeLaunchConfigurations"
+          "autoscaling:DescribeTags"
+          "autoscaling:SetDesiredCapacity"
+          "autoscaling:DescribeScalingActivities"
+          "ec2:DescribeLaunchTemplateVersions"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
 }
 
 # Create Node Group
