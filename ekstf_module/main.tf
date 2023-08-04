@@ -42,6 +42,7 @@ resource "aws_eks_cluster" "eks_cluster" {
 
 # Create Worker Node IAM Role
 # Create Worker Node IAM Role
+# Create Worker Node IAM Role
 resource "aws_iam_role" "eks_worker_node" {
   name = "eks-worker-node-role"
 
@@ -65,9 +66,14 @@ resource "aws_iam_role" "eks_worker_node" {
     ]
   })
 
-  # Attach the AmazonEKSClusterPolicy to the IAM role
-  managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"]
+  # Attach the AmazonEKSClusterPolicy, AmazonEKSWorkerNodePolicy, and AmazonEC2ContainerRegistryReadOnly policies to the IAM role
+  managed_policy_arns = [
+    "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
+    "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
+    "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  ]
 }
+
 
 
 # Create and attach the inline policy to IAM role
