@@ -41,8 +41,6 @@ resource "aws_eks_cluster" "eks_cluster" {
 }
 
 # Create Worker Node IAM Role
-# Create Worker Node IAM Role
-# Create Worker Node IAM Role
 resource "aws_iam_role" "eks_worker_node" {
   name = "eks-worker-node-role"
 
@@ -65,21 +63,24 @@ resource "aws_iam_role" "eks_worker_node" {
       }
     ]
   })
-
-  # Attach the AmazonEKSClusterPolicy, AmazonEKSWorkerNodePolicy, and AmazonEC2ContainerRegistryReadOnly policies to the IAM role
-  managed_policy_arns = [
-    "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
-    "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
-    "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  ]
 }
 
+# Attach the AmazonEKSClusterPolicy, AmazonEKSWorkerNodePolicy, and AmazonEC2ContainerRegistryReadOnly policies to the IAM role
+resource "aws_iam_policy_attachment" "eks_cluster_policy_attachment" {
+  name       = "eks-cluster-policy-attachment"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  roles      = [aws_iam_role.eks_worker_node.name]
+}
 
-
-# Create and attach the inline policy to IAM role
 resource "aws_iam_policy_attachment" "eks_worker_node_policy_attachment" {
   name       = "eks-worker-node-policy-attachment"
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"  # Attach more policies if needed
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+  roles      = [aws_iam_role.eks_worker_node.name]
+}
+
+resource "aws_iam_policy_attachment" "ecr_readonly_policy_attachment" {
+  name       = "ecr-readonly-policy-attachment"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   roles      = [aws_iam_role.eks_worker_node.name]
 }
 
@@ -104,44 +105,4 @@ resource "aws_eks_node_group" "node_group" {
     Terraform   = "true"
     Environment = "dev"
   }
-}
-
-# Security Group for EKS Workers
-resource "aws_security_group" "eks_worker_sg" {
-  name_prefix = "eks-worker-sg"
-  vpc_id      = aws_vpc.eks_vpc.id
-
-  # Allow all outbound traffic
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-# Security Group for Prometheus
-resource "aws_security_group" "prometheus_sg" {
-  name_prefix = "prometheus-sg"
-  vpc_id      = aws_vpc.eks_vpc.id
-
-  # Allow inbound traffic on port 9090 for Prometheus
-  ingress {
-    from_port   = 9090
-    to_port     = 9090
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Update this with the allowed CIDR blocks (or restrict it to specific IP ranges)
-  }
-}
-
-# Attach the Prometheus security group to EKS Workers
-resource "aws_security_group_rule" "prometheus_sg_attachment" {
-  type              = "ingress"
-  from_port         = 9090
-  to_port           = 9090
-  protocol          = "tcp"
-  security_group_id = aws_security_group.prometheus_sg.id
-
-  # Replace "0.0.0.0/0" with the allowed CIDR block
-  cidr_blocks       = ["10.0.0.0/24"]
 }
