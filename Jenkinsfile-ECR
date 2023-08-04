@@ -167,8 +167,8 @@ pipeline{
             dir('ekstf_module') {
                 sh """
                     terraform init
-                    terraform plan -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=${params.Region}' -var-file=variables.tf
-                    terraform apply -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=${params.Region}' -var-file=variables.tf --auto-approve 
+                    terraform plan -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=us-east-2'
+                    terraform apply -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=us-east-2'  --auto-approve 
                 """
             }
         }
