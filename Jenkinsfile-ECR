@@ -160,7 +160,26 @@ pipeline{
 
 
 
-      stage ('EKS Cluster Creation: Terraform'){
+    stage ('EKS Cluster Creation: Terraform'){
+         when {expression { params.action == 'create' }}
+            steps{
+
+                script{
+                    dir('ekstf_module'){
+                        sh """
+                            terraform init
+                            terraform plan -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=${params.Region}' --var-file=variable.tf
+                            terraform apply -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=${params.Region}' --var-file=variable.tf --auto-approve 
+                        """
+                    }
+              }
+
+            }
+           
+        } 
+
+
+    /*   stage ('EKS Cluster Creation: Terraform'){
          when {expression { params.action == 'create' }}
             steps{
 
@@ -176,7 +195,7 @@ pipeline{
 
             }
            
-        } 
+        }  */
 
 
     /*     stage ('Connection to EKS'){
