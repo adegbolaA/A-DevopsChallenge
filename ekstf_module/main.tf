@@ -59,32 +59,13 @@ resource "aws_iam_role" "eks_worker_node" {
 
   # Attach the AmazonEKSClusterPolicy to the IAM role
   managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"]
+}
 
-  # Inline policy to allow nodes to join the EKS cluster
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect   = "Allow"
-        Action   = [
-          "eks:DescribeCluster",
-          "eks:DescribeUpdate",  # Add comma here
-          "eks:ListNodegroups",
-          "eks:CreateNodegroup",
-          "eks:DeleteNodegroup",
-          "eks:TagResource",
-          "eks:UntagResource",
-          "autoscaling:DescribeAutoScalingGroups",
-          "autoscaling:DescribeLaunchConfigurations",
-          "autoscaling:DescribeTags",
-          "autoscaling:SetDesiredCapacity",
-          "autoscaling:DescribeScalingActivities",
-          "ec2:DescribeLaunchTemplateVersions",
-        ]
-        Resource = "*"
-      }
-    ]
-  })
+# Create and attach the inline policy to IAM role
+resource "aws_iam_policy_attachment" "eks_worker_node_policy_attachment" {
+  name       = "eks-worker-node-policy-attachment"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"  # Attach more policies if needed
+  roles      = [aws_iam_role.eks_worker_node.name]
 }
 
 # Create Node Group
