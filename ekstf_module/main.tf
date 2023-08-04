@@ -51,7 +51,6 @@ resource "aws_iam_role" "eks_worker_node" {
         Effect = "Allow"
         Principal = {
           Service = "ec2.amazonaws.com"
-          AWS     = "eks.amazonaws.com"  # Add this line to allow EKS service to assume the role
         }
       }
     ]
@@ -60,6 +59,7 @@ resource "aws_iam_role" "eks_worker_node" {
   # Attach the AmazonEKSClusterPolicy to the IAM role
   managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"]
 }
+
 
 
 # Security Group for EKS Workers
@@ -92,10 +92,14 @@ resource "aws_security_group" "prometheus_sg" {
 
 # Attach the Prometheus security group to EKS Workers
 resource "aws_security_group_rule" "prometheus_sg_attachment" {
-  type        = "ingress"
-  from_port   = 9090
-  to_port     = 9090
-  protocol    = "tcp"
+  type              = "ingress"
+  from_port         = 9090
+  to_port           = 9090
+  protocol          = "tcp"
   security_group_id = aws_security_group.prometheus_sg.id
+
+  # Replace "0.0.0.0/0" with the allowed CIDR block
+  cidr_blocks       = ["10.0.0.0/24"]
 }
+
 
