@@ -65,21 +65,21 @@ resource "aws_iam_role" "eks_worker_node" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect = "Allow"
-        Action = [
-          "eks:DescribeCluster"
-          "eks:DescribeUpdate"
-          "eks:ListNodegroups"
-          "eks:CreateNodegroup"
-          "eks:DeleteNodegroup"
-          "eks:TagResource"
-          "eks:UntagResource"
-          "autoscaling:DescribeAutoScalingGroups"
-          "autoscaling:DescribeLaunchConfigurations"
-          "autoscaling:DescribeTags"
-          "autoscaling:SetDesiredCapacity"
-          "autoscaling:DescribeScalingActivities"
-          "ec2:DescribeLaunchTemplateVersions"
+        Effect   = "Allow"
+        Action   = [
+          "eks:DescribeCluster",
+          "eks:DescribeUpdate",  # Add comma here
+          "eks:ListNodegroups",
+          "eks:CreateNodegroup",
+          "eks:DeleteNodegroup",
+          "eks:TagResource",
+          "eks:UntagResource",
+          "autoscaling:DescribeAutoScalingGroups",
+          "autoscaling:DescribeLaunchConfigurations",
+          "autoscaling:DescribeTags",
+          "autoscaling:SetDesiredCapacity",
+          "autoscaling:DescribeScalingActivities",
+          "ec2:DescribeLaunchTemplateVersions",
         ]
         Resource = "*"
       }
