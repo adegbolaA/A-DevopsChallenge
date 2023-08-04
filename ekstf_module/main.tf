@@ -40,6 +40,7 @@ resource "aws_eks_cluster" "eks_cluster" {
   }
 }
 
+# Create Worker Node IAM Role
 resource "aws_iam_role" "eks_worker_node" {
   name = "eks-worker-node-role"
 
@@ -51,6 +52,7 @@ resource "aws_iam_role" "eks_worker_node" {
         Effect = "Allow"
         Principal = {
           Service = "ec2.amazonaws.com"
+          AWS     = "eks.amazonaws.com"
         }
       }
     ]
@@ -60,7 +62,28 @@ resource "aws_iam_role" "eks_worker_node" {
   managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"]
 }
 
+# Create Node Group
+resource "aws_eks_node_group" "node_group" {
+  cluster_name    = aws_eks_cluster.eks_cluster.name
+  node_group_name = "my-node-group"
+  node_role_arn   = aws_iam_role.eks_worker_node.arn
+  subnet_ids      = [
+    aws_subnet.private_subnet_a.id,
+    aws_subnet.private_subnet_b.id,
+    aws_subnet.private_subnet_c.id,
+  ]
 
+  scaling_config {
+    desired_size = 2
+    max_size     = 2
+    min_size     = 1
+  }
+
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
+}
 
 # Security Group for EKS Workers
 resource "aws_security_group" "eks_worker_sg" {
@@ -101,5 +124,3 @@ resource "aws_security_group_rule" "prometheus_sg_attachment" {
   # Replace "0.0.0.0/0" with the allowed CIDR block
   cidr_blocks       = ["10.0.0.0/24"]
 }
-
-
