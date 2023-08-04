@@ -40,7 +40,6 @@ resource "aws_eks_cluster" "eks_cluster" {
   }
 }
 
-# Create Worker Node IAM Role
 resource "aws_iam_role" "eks_worker_node" {
   name = "eks-worker-node-role"
 
@@ -52,11 +51,16 @@ resource "aws_iam_role" "eks_worker_node" {
         Effect = "Allow"
         Principal = {
           Service = "ec2.amazonaws.com"
+          AWS     = "eks.amazonaws.com"  # Add this line to allow EKS service to assume the role
         }
       }
     ]
   })
+
+  # Attach the AmazonEKSClusterPolicy to the IAM role
+  managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"]
 }
+
 
 # Security Group for EKS Workers
 resource "aws_security_group" "eks_worker_sg" {
