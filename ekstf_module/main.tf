@@ -29,7 +29,7 @@ resource "aws_subnet" "private_subnet_c" {
 # Create EKS Cluster
 resource "aws_eks_cluster" "eks_cluster" {
   name     = var.eks_cluster_name
-  role_arn = aws_iam_role.eks_cluster.arn
+  role_arn = aws_iam_role.eks_worker_node.arn
 
   vpc_config {
     subnet_ids = [
@@ -87,11 +87,11 @@ resource "aws_security_group" "prometheus_sg" {
 }
 
 # Attach the Prometheus security group to EKS Workers
-resource "aws_security_group_attachment" "prometheus_sg_attachment" {
+resource "aws_security_group_rule" "prometheus_sg_attachment" {
+  type        = "ingress"
+  from_port   = 9090
+  to_port     = 9090
+  protocol    = "tcp"
   security_group_id = aws_security_group.prometheus_sg.id
-  subnet_ids        = [
-    aws_subnet.private_subnet_a.id,
-    aws_subnet.private_subnet_b.id,
-    aws_subnet.private_subnet_c.id,
-  ]
 }
+
