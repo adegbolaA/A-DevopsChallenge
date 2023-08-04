@@ -7,7 +7,7 @@ resource "aws_eks_cluster" "eks" {
   role_arn = aws_iam_role.eks_cluster.arn
 
   # Desired Kubernetes master version
-  version = "1.24"
+  version = "1.27"
 
     vpc_config {
     endpoint_private_access = false

@@ -179,7 +179,7 @@ pipeline{
         }  
 
 
-    /*     stage ('Connection to EKS'){
+        stage ('Connection to EKS'){
          when {expression { params.action == 'create' }}
             steps{
 
@@ -194,9 +194,9 @@ pipeline{
 
             }
            
-        } */  
+        } 
       
-   /*      stage ('Deploy to EKS'){
+         stage ('Deploy to EKS'){
          when {expression { params.action == 'create' }}
             steps{
 
@@ -205,24 +205,24 @@ pipeline{
                         def apply = false
 
                         try{
-                            input message: "Confirm Deploy to PRODUCTION", ok: 'Ready to apply the Config ?'
+                            input message: "Confirm Deploy to PRODUCTION", ok: 'Ready to Deploy to PRODUCTION ?'
                             apply = true
                         }catch(err){
                             apply=false
                             /* jenkins variable */
-                          /*   currentBuild.result = 'UNSTABLE'  */
-                  /*        }
+                          currentBuild.result = 'UNSTABLE'  
+                          }
                         if(apply){
                             sh """
                                 kubectl apply -f deployment-service-eks.yml
                             """
                         }
                    
-              } */
+              } 
 
-          /*   }
-            */
-    /*     }  */  
+             }
+            
+        }   
       
 
 
