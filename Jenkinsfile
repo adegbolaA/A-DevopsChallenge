@@ -134,6 +134,18 @@ pipeline{
            
         }
 
+        stage ('Docker Image Cleanup: DockerHub'){
+         when {expression { params.action == 'create' }}
+            steps{
+
+                script{
+                    dockerImageCleanUp("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
+              }
+
+            }
+           
+        }
+
 
         stage ('Deploy'){
          when {expression { params.action == 'create' }}
