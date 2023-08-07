@@ -145,20 +145,6 @@ pipeline{
            
         }
 
-        //Image Cleanup
-         stage ('Docker Image Cleanup: ECR'){
-         when {expression { params.action == 'create' }}
-            steps{
-
-                script{
-                    dockerImageECRCleanUp("${params.aws_account_id}","${params.Region}","${params.ECR_REPO_NAME}")
-              }
-
-            }
-           
-        }
-
-
 
         stage ('EKS Cluster Creation: Terraform'){
          when {expression { params.action == 'create' }}
