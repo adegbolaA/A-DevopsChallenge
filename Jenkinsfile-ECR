@@ -196,7 +196,7 @@ pipeline{
                             apply = true
                         }catch(err){
                             apply=false
-                            /* jenkins variable */
+                           
                           currentBuild.result = 'UNSTABLE'  
                           }
                         if(apply){
