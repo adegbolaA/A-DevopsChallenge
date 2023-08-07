@@ -235,7 +235,7 @@ pipeline{
                      to: 'akolade4real@gmail.com'
         }
         unstable {
-            // This block will execute only if the pipeline result is unstable.
+            // This block will execute only if the pipeline is unstable.
             echo 'Pipeline is unstable. Sending notification...'
              mail bcc: '',
                      body: 'The Jenkins pipeline is unstable!',
