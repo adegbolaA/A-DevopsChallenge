@@ -28,11 +28,11 @@ kind: Service
 metadata:
   name: java-app-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: java-app
   ports:
     - protocol: TCP
-      port: 8081
+      port: 80
       targetPort: 8081
 
