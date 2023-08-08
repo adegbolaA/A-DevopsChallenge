@@ -13,19 +13,32 @@ public class ConversionProblem {
         this.temperatureConverter = temperatureConverter;
     }
 
-    public String checkResponse(double input, String inputUnit, String targetUnit, double studentResponse) {
+    public String checkResponse(double input, String inputUnit, String targetUnit, String studentResponse) {
+        double authoritativeAnswer;
         try {
-            double authoritativeAnswer = temperatureConverter.convert(input, inputUnit, targetUnit);
-            double roundedStudentResponse = Math.round(studentResponse * 10.0) / 10.0;
+            authoritativeAnswer = temperatureConverter.convert(input, inputUnit, targetUnit);
+        } catch (IllegalArgumentException e) {
+            return "Invalid";
+        }
+
+        try {
+            double studentNumericResponse = Double.parseDouble(studentResponse);
+            double roundedStudentResponse = Math.round(studentNumericResponse * 10.0) / 10.0;
             double roundedAuthoritativeAnswer = Math.round(authoritativeAnswer * 10.0) / 10.0;
 
-            if (roundedStudentResponse == roundedAuthoritativeAnswer) {
+            if (Double.compare(roundedStudentResponse, roundedAuthoritativeAnswer) == 0) {
                 return "Correct";
             } else {
                 return "Incorrect";
             }
-        } catch (IllegalArgumentException e) {
-            return "Invalid";
+        } catch (NumberFormatException e) {
+            // If the studentResponse is not a valid numeric value, treat it as a string
+            // comparison
+            if (studentResponse.equalsIgnoreCase(String.valueOf(authoritativeAnswer))) {
+                return "Correct";
+            } else {
+                return "Incorrect";
+            }
         }
     }
 

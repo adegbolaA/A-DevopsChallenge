@@ -24,7 +24,7 @@ public class ConversionProblemTests {
         double input = 100.0;
         String inputUnit = "Celsius";
         String targetUnit = "Fahrenheit";
-        double studentResponse = 212.0;
+        String studentResponse = "212.0"; // Use String instead of Double
 
         String result = conversionProblem.checkResponse(input, inputUnit, targetUnit, studentResponse);
         Assertions.assertEquals("Correct", result);
@@ -35,7 +35,7 @@ public class ConversionProblemTests {
         double input = 100.0;
         String inputUnit = "Celsius";
         String targetUnit = "Fahrenheit";
-        double studentResponse = 200.0;
+        String studentResponse = "200.0"; // Use String instead of Double
 
         String result = conversionProblem.checkResponse(input, inputUnit, targetUnit, studentResponse);
         Assertions.assertEquals("Incorrect", result);
@@ -46,7 +46,7 @@ public class ConversionProblemTests {
         double input = 100.0;
         String inputUnit = "InvalidUnit";
         String targetUnit = "Fahrenheit";
-        double studentResponse = 212.0;
+        String studentResponse = "212.0"; // Use String instead of Double
 
         String result = conversionProblem.checkResponse(input, inputUnit, targetUnit, studentResponse);
         Assertions.assertEquals("Invalid", result);
