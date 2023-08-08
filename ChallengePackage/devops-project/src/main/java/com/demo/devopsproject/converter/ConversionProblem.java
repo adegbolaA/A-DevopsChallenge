@@ -13,7 +13,7 @@ public class ConversionProblem {
         this.temperatureConverter = temperatureConverter;
     }
 
-    public String checkResponse(double input, String inputUnit, String targetUnit, Object studentResponse) {
+    public String checkResponse(double input, String inputUnit, String targetUnit, String studentResponse) {
         double authoritativeAnswer;
         try {
             authoritativeAnswer = temperatureConverter.convert(input, inputUnit, targetUnit);
@@ -21,8 +21,8 @@ public class ConversionProblem {
             return "Invalid";
         }
 
-        if (studentResponse instanceof Double) {
-            double studentNumericResponse = (Double) studentResponse;
+        try {
+            double studentNumericResponse = Double.parseDouble(studentResponse);
             double roundedStudentResponse = Math.round(studentNumericResponse * 10.0) / 10.0;
             double roundedAuthoritativeAnswer = Math.round(authoritativeAnswer * 10.0) / 10.0;
 
@@ -31,20 +31,14 @@ public class ConversionProblem {
             } else {
                 return "Incorrect";
             }
-        } else if (studentResponse instanceof String) {
-            // If the studentResponse is a string, treat it as a string comparison
-            String studentStringResponse = (String) studentResponse;
-            String roundedAuthoritativeAnswerAsString = String.valueOf(Math.round(authoritativeAnswer * 10.0) / 10.0);
-
-            if (studentStringResponse.equalsIgnoreCase(roundedAuthoritativeAnswerAsString)) {
+        } catch (NumberFormatException e) {
+            // If the studentResponse is not a valid numeric value, treat it as a string
+            // comparison
+            if (studentResponse.equalsIgnoreCase(String.valueOf(authoritativeAnswer))) {
                 return "Correct";
             } else {
                 return "Incorrect";
             }
-        } else {
-            // If the studentResponse is neither a valid numeric value nor a string,
-            // consider it Invalid
-            return "Invalid";
         }
     }
 }
