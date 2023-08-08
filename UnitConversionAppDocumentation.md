@@ -100,3 +100,15 @@ The necessary credentials for AWS (AWS_ACCESS_KEY_ID, AWS_SECRET_KEY_ID) and Son
 
 **Conclusion**  
 This Jenkins pipeline provides a robust and automated approach to building, testing, and deploying a Java application using Docker and Kubernetes on AWS EKS. By leveraging the power of Jenkins and the shared library 'my-shared-library', developers can streamline their deployment process, improve code quality, and ensure smooth CI/CD workflows.
+
+
+
+**Development Tasks to Improve my Solution to the Code Challenge**
+- Build a User Interface for the Application  
+- Use of already created Terraform modules from Terraform Registry to streamline EKS Creation purposes  
+- Create Release Branches (Dev, QA, PROD)  
+- Integrate the ELK(Elastic, Logstash, Kibana) stack for metric, logs collection though i used Prometheus and Grafana.  
+- Proper naming convention
+- Further extraction of the temperature units and constant values into Constants or use Enums
+
+

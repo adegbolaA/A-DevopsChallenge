@@ -5,7 +5,7 @@ metadata:
   labels:
     app: java-app
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: java-app
@@ -28,7 +28,7 @@ kind: Service
 metadata:
   name: java-app-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: java-app
   ports:
