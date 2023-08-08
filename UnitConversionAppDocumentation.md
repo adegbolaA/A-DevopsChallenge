@@ -16,7 +16,8 @@ The pipeline consists of the following stages:
 1. **Git Checkout**      
 - Stage Name: Git Checkout       
 - Purpose: Fetches the source code from a specified Git repository for further processing.    
-- Conditions: This stage is executed only when the action parameter is set to 'create'.
+- Conditions: This stage is executed only when the action parameter is set to 'create'.  
+- Introduced Webhook
 
 2. **Maven Unit Test**    
 - Stage Name: Maven Unit Test  
