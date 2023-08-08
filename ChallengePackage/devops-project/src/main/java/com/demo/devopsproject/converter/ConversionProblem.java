@@ -17,6 +17,8 @@ public class ConversionProblem {
         double authoritativeAnswer;
         try {
             authoritativeAnswer = temperatureConverter.convert(input, inputUnit, targetUnit);
+        } catch (NumberFormatException e) {
+            return "Incorrect";
         } catch (IllegalArgumentException e) {
             return "Invalid";
         }
