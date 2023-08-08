@@ -20,15 +20,7 @@ public class TemperatureConversionController {
     public String convertTemperature(@RequestParam double input,
             @RequestParam String inputUnit,
             @RequestParam String targetUnit,
-            @RequestParam String studentResponse) {
-        double studentNumericResponse;
-        try {
-            studentNumericResponse = Double.parseDouble(studentResponse);
-        } catch (NumberFormatException e) {
-            // If studentResponse is not a valid numeric value, treat it as incorrect
-            return "Incorrect";
-        }
-
+            @RequestParam double studentResponse) {
         return conversionProblem.checkResponse(input, inputUnit.toUpperCase(), targetUnit.toUpperCase(),
                 studentResponse);
     }
