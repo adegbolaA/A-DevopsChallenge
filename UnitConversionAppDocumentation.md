@@ -110,6 +110,6 @@ This Jenkins pipeline provides a robust and automated approach to building, test
 - Integrate the ELK(Elastic, Logstash, Kibana) stack for metric, logs collection though i used Prometheus and Grafana.  
 - Proper naming convention
 - Further extraction of the temperature units and constant values into Constants or use Enums  
-- Use LoadBalancer instead of NodePort
+- Error message handling such as creating a customer controller class to handle /errors
 
 
