@@ -221,13 +221,19 @@ pipeline{
         success {
             // This block will execute only if the pipeline succeeds.
             echo 'Pipeline succeeded. Sending notification...'
-            mail bcc: '', body: 'The Jenkins pipeline has succeeded!', cc: '', from: 'akolade4real@gmail.com', replyTo: '', subject: 'Jenkins Pipeline Success', to: 'akolade4real@gmail.com'
+            mail bcc: '', 
+            body: 'The Jenkins pipeline has succeeded! Build URL: ${env.BUILD_URL}',
+            cc: '', 
+            from: 'akolade4real@gmail.com',
+            replyTo: '', 
+            subject: 'Jenkins Pipeline Success', 
+            to: 'akolade4real@gmail.com'
         }
         failure {
             // This block will execute only if the pipeline fails.
             echo 'Pipeline failed. Sending notification...'
             mail bcc: '',
-                     body: 'The Jenkins pipeline has failed!',
+                     body: 'The Jenkins pipeline has failed! Build URL: ${env.BUILD_URL}',
                      cc: '',
                      from: 'akolade4real@gmail.com',
                      replyTo: '',
@@ -238,7 +244,7 @@ pipeline{
             // This block will execute only if the pipeline is unstable.
             echo 'Pipeline is unstable. Sending notification...'
              mail bcc: '',
-                     body: 'The Jenkins pipeline is unstable!',
+                     body: 'The Jenkins pipeline is unstable! Build URL: ${env.BUILD_URL}',
                      cc: '',
                      from: 'akolade4real@gmail.com',
                      replyTo: '',
