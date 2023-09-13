@@ -38,7 +38,7 @@ jobs:
     needs: [build]
     steps:
     - name: Run Maven Unit Tests
-      working-directory: ${{ github.workspace }}/ChallengePackage/devops-project
+      working-directory: ChallengePackage/devops-project
       run: mvn test
 
 
