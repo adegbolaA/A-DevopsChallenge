@@ -37,12 +37,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-    - name: List Workspace Contents
-      run: ls -R
-
     - name: Run Maven Unit Tests
-      run: |
-        cd "${{ github.workspace }}/ChallengePackage/devops-project"
-        mvn test
+      working-directory: ${{ github.workspace }}/ChallengePackage/devops-project
+      run: mvn test
 
 
