@@ -28,5 +28,7 @@ jobs:
       run: ls -R ChallengePackage/devops-project
       
     - name: Build with Maven
-      run: mvn -B package --file /home/ec2-user/A-DevopsChallenge/ChallengePackage/devops-project/pom.xml
+      run: |
+        cd ChallengePackage/devops-project
+        mvn -B package
 
