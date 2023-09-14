@@ -95,12 +95,11 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: List current directory
-        run: pwd
-      - name: List directory contents
-        run: ls -R
       - name: Change to project directory
         run: cd $GITHUB_WORKSPACE/ChallengePackage/devops-project
+      - name: Verify current directory
+        run: pwd
+
       - name: List project directory contents
         run: ls -R
       - name: Build and analyze
