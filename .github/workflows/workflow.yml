@@ -106,13 +106,30 @@ jobs:
         working-directory: ${{ github.workspace }}/ChallengePackage/devops-project
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=WeatherApp-CI-CD -Dsonar.projectName='WeatherApp-CI-CD'
 
-  Analysis:
+  sonarqube-quality-gate:
     runs-on: ubuntu-latest
-
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Analyze with SonarQube
-        uses: kitabisa/sonarqube-action@v1.2.0
+        uses: sonarsource/sonarqube-scan-action@v1
         with:
-          login: ${{ secrets.SONAR_TOKEN }} # Generate a token on SonarQube, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
-          host: ${{ secrets.SONAR_HOST_URL }}
-          projectKey: "WeatherApp-CI-CD"
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          sonar-url: ${{ secrets.SONAR_HOST_URL }}
+          project-key: WeatherApp-CI-CD # Replace with your project key
+
+      - name: Wait for analysis to complete
+        run: sleep 20s # Adjust the wait time as needed to allow SonarQube analysis to complete
+
+      - name: Check SonarQube Quality Gate status
+        id: sonarqube-quality-gate-check
+        uses: sonarsource/sonarqube-quality-gate-action@v1
+        with:
+          project-key: WeatherApp-CI-CD # Replace with your project key
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          sonar-url: ${{ secrets.SONAR_HOST_URL }}
+
+      - name: Display SonarQube Quality Gate status
+        run: |
+          echo "SonarQube Quality Gate status: ${{ steps.sonarqube-quality-gate-check.outputs.status }}"
