@@ -119,4 +119,4 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
           # Additional arguments for the sonarcloud scanner
-          args: -Dsonar.projectKey= WeatherApp-CI-CD
+          args: -Dsonar.projectKey=WeatherApp-CI-CD
