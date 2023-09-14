@@ -114,10 +114,6 @@ jobs:
 
       - name: Analyze with SonarQube
         uses: sonarsource/sonarqube-scan-action@master
-        with:
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
-          sonar-url: ${{ secrets.SONAR_HOST_URL }}
-          project-key: WeatherApp-CI-CD # Replace with your project key
 
       - name: Wait for analysis to complete
         run: sleep 20s # Adjust the wait time as needed to allow SonarQube analysis to complete
@@ -125,10 +121,6 @@ jobs:
       - name: Check SonarQube Quality Gate status
         id: sonarqube-quality-gate-check
         uses: sonarsource/sonarqube-quality-gate-action@master
-        with:
-          project-key: WeatherApp-CI-CD # Replace with your project key
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
-          sonar-url: ${{ secrets.SONAR_HOST_URL }}
 
       - name: Display SonarQube Quality Gate status
         run: |
