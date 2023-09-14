@@ -124,7 +124,7 @@ jobs:
 
       - name: Check SonarQube Quality Gate status
         id: sonarqube-quality-gate-check
-        uses: sonarsource/sonarqube-quality-gate-action@v1
+        uses: sonarsource/sonarqube-quality-gate-action@v0.1.4
         with:
           project-key: WeatherApp-CI-CD # Replace with your project key
           sonar-token: ${{ secrets.SONAR_TOKEN }}
