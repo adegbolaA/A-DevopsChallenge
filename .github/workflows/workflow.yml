@@ -118,6 +118,8 @@ jobs:
           working-directory:
             ${{ github.workspace }}/ChallengePackage/devops-project
             # Check the Quality Gate status.
+      - name: Configure SonarQube project key
+        run: echo "sonar.projectKey=WeatherApp-CI-CD" > ${{ github.workspace }}/ChallengePackage/devops-project/sonar-project.properties
       - name: SonarQube Quality Gate check
         id: sonarqube-quality-gate-check
         uses: sonarsource/sonarqube-quality-gate-action@master
