@@ -33,7 +33,9 @@ jobs:
           java-version: "11"
           distribution: "temurin"
       - name: Build with Maven
-        run: mvn clean install
+        run: |
+          cd ChallengePackage/devops-project
+          mvn clean install
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
