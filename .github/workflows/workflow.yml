@@ -111,22 +111,8 @@ jobs:
 
     steps:
       - name: Analyze with SonarQube
-        uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Generate a token on SonarQube, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          working-directory:
-            ${{ github.workspace }}/ChallengePackage/devops-project
-            # Check the Quality Gate status.
-      - name: Configure SonarQube project key
-        run: echo "sonar.projectKey=WeatherApp-CI-CD" > ${{ github.workspace }}/ChallengePackage/devops-project/sonar-project.properties
-      - name: SonarQube Quality Gate check
-        id: sonarqube-quality-gate-check
-        uses: sonarsource/sonarqube-quality-gate-action@master
-        # Force to fail step after specific time.
-        timeout-minutes: 5
-        env:
-          working-directory: ${{ github.workspace }}/ChallengePackage/devops-project
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }} #OPTIONAL
-
+        uses: kitabisa/sonarqube-action@v1.2.0
+        with:
+          login: ${{ secrets.SONAR_TOKEN }} # Generate a token on SonarQube, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
+          host: ${{ secrets.SONAR_HOST_URL }}
+          projectKey: "WeatherApp-CI-CD"
