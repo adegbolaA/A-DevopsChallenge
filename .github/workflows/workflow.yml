@@ -100,7 +100,7 @@ jobs:
       - name: List directory contents
         run: ls -R
       - name: Change to project directory
-        run: cd $GITHUB_WORKSPACE/A-DevopsChallenge/ChallengePackage/devops-project
+        run: cd $GITHUB_WORKSPACE/ChallengePackage/devops-project
       - name: List project directory contents
         run: ls -R
       - name: Build and analyze
