@@ -17,7 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      JAVA_VERSION: "17"
+      JAVA_VERSION: "11"
       JAVA_DISTRIBUTION: "temurin"
 
     steps:
@@ -39,7 +39,7 @@ jobs:
   Unit-Test:
     runs-on: ubuntu-latest
     env:
-      JAVA_VERSION: "17"
+      JAVA_VERSION: "11"
       JAVA_DISTRIBUTION: "temurin"
     needs: [build]
     steps:
@@ -57,7 +57,7 @@ jobs:
   Integration-Test:
     runs-on: ubuntu-latest
     env:
-      JAVA_VERSION: "17"
+      JAVA_VERSION: "11"
       JAVA_DISTRIBUTION: "temurin"
     needs: [build, Unit-Test]
     steps:
@@ -75,7 +75,7 @@ jobs:
   Sonarqube-Static-Code-Analysis:
     runs-on: ubuntu-latest
     env:
-      JAVA_VERSION: "17"
+      JAVA_VERSION: "11"
       JAVA_DISTRIBUTION: "temurin"
     needs: [build, Unit-Test, Integration-Test]
     steps:
