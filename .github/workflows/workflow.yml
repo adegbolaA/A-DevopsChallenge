@@ -27,14 +27,10 @@ env:
     # containerDefinitions section of your task definition
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     env:
       JAVA_VERSION: "11"
       JAVA_DISTRIBUTION: "temurin"
-
-    strategy:
-        matrix:
-          os: [ubuntu-latest, windows-latest, macOS-latest]
 
 
     steps:
