@@ -135,6 +135,7 @@ jobs:
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+          working-directory: /home/ec2-user/A-DevopsChallenge
 
   sonarqube-quality-gate:
     runs-on: ubuntu-latest
