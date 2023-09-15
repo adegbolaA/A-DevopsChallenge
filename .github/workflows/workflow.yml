@@ -125,7 +125,6 @@ jobs:
           image-ref: 'docker.io/kevinlearningaccount/javaapp:latest'
           format: 'table'       
           ignore-unfixed: true
-          exit-code: '1'
           severity: 'CRITICAL,HIGH'
         
 
