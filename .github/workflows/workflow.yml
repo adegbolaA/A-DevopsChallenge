@@ -106,6 +106,36 @@ jobs:
         working-directory: ${{ github.workspace }}/ChallengePackage/devops-project
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=WeatherApp-CI-CD -Dsonar.projectName='WeatherApp-CI-CD'
 
+  Maven-Build:
+    runs-on: ubuntu-latest
+    env:
+      JAVA_VERSION: "11"
+      JAVA_DISTRIBUTION: "temurin"
+    needs: [build, Unit-Test]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+      - name: Run Maven Unit Tests
+        run: |
+          cd ChallengePackage/devops-project
+          mvn clean install
+
+  Docker-Build-Push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+          image: kevinlearningaccount/javaapp
+          tags: v1, latest
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
   sonarqube-quality-gate:
     runs-on: ubuntu-latest
     steps:
