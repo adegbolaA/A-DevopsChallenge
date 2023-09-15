@@ -120,11 +120,11 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Run Trivy vulnerability scanner for Docker Image
-        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
+        uses: aquasecurity/trivy-action@master
         with:
           image-ref: 'docker.io/kevinlearningaccount/javaapp:latest'
           format: 'table'
-          template: '@/contrib/sarif.tpl'
+          
           output: 'trivy-results.sarif'
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
