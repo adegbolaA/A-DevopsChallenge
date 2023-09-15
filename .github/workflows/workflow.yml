@@ -22,6 +22,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
@@ -36,64 +38,22 @@ jobs:
           cd ChallengePackage/devops-project
           mvn -B package test
 
-  Unit-Test:
-    runs-on: ubuntu-latest
-    env:
-      JAVA_VERSION: "11"
-      JAVA_DISTRIBUTION: "temurin"
-    needs: [build]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Run Maven Unit Tests
         run: |
           cd ChallengePackage/devops-project
           mvn test
 
-  Integration-Test:
-    runs-on: ubuntu-latest
-    env:
-      JAVA_VERSION: "11"
-      JAVA_DISTRIBUTION: "temurin"
-    needs: [build, Unit-Test]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_DISTRIBUTION }}
-      - name: Run Maven Unit Tests
+      - name: Integration-Test
         run: |
           cd ChallengePackage/devops-project
           mvn verify -DskipUnitTests
-
-  Sonarqube-Static-Code-Analysis:
-    runs-on: ubuntu-latest
-    env:
-      JAVA_VERSION: "11"
-      JAVA_DISTRIBUTION: "temurin"
-    needs: [build, Unit-Test, Integration-Test]
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_DISTRIBUTION }}
-      - name: Cache SonarQube packages
+      - name: Sonarqube-Static-Code-Analysis- Cache SonarQube packages
         uses: actions/cache@v1
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-      - name: Cache Maven packages
+      - name: Sonarqube-Static-Code-Analysis- Cache Maven packages
         uses: actions/cache@v1
         with:
           path: ~/.m2
@@ -105,38 +65,19 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         working-directory: ${{ github.workspace }}/ChallengePackage/devops-project
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=WeatherApp-CI-CD -Dsonar.projectName='WeatherApp-CI-CD'
-
-  Maven-Build:
-    runs-on: ubuntu-latest
-    env:
-      JAVA_VERSION: "11"
-      JAVA_DISTRIBUTION: "temurin"
-    needs: [build, Unit-Test]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_DISTRIBUTION }}
-      - name: Run Maven Unit Tests
+      - name: Maven-Build
         run: |
           cd ChallengePackage/devops-project
           mvn clean install
 
-  Docker-Build-Push:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3      
-      - uses: mr-smithers-excellent/docker-build-push@v6
+      - name: Docker-Build-Push
+        uses: mr-smithers-excellent/docker-build-push@v6
         with:
-          context: ./
           image: kevinlearningaccount/javaapp
           tags: v1, latest
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      
 
   sonarqube-quality-gate:
     runs-on: ubuntu-latest
