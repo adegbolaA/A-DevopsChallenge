@@ -125,7 +125,7 @@ jobs:
           image-ref: 'docker.io/kevinlearningaccount/javaapp:latest'
           format: 'table'
           
-          output: 'trivy-results.sarif'
+         
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
 
