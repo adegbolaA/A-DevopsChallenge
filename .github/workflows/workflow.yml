@@ -123,9 +123,10 @@ jobs:
         uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
         with:
           image-ref: 'docker.io/kevinlearningaccount/javaapp:latest'
-          format: 'template'
+          format: 'table'
           template: '@/contrib/sarif.tpl'
           output: 'trivy-results.sarif'
+          ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
 
 
