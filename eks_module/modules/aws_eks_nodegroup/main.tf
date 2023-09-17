@@ -79,7 +79,7 @@ resource "aws_eks_node_group" "nodes_general" {
     desired_size = 1
 
     # Maximum number of worker nodes.
-    max_size = 1
+    max_size = 2
 
     # Minimum number of worker nodes.
     min_size = 1
@@ -100,7 +100,7 @@ resource "aws_eks_node_group" "nodes_general" {
   force_update_version = false
 
   # List of instance types associated with the EKS Node Group
-  instance_types = ["t3a.medium"]
+  instance_types = ["t3.xlarge"]
 
   # Kubernetes version
   version = "1.27"
