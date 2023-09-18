@@ -6,7 +6,7 @@
             "name": "java-app",
             "image": "908459128553.dkr.ecr.us-east-2.amazonaws.com/java-app:latest",
             "essential": true,
-            "memory": 6144, 
+            "memory": 768, 
             "portMappings": [
                 {
                     "containerPort": 8081,
@@ -28,5 +28,5 @@
     "networkMode": "awsvpc",
     "executionRoleArn": "arn:aws:iam::908459128553:role/ecsTaskExecutionRole",
     "cpu": "256", 
-    "memory": "2048" 
+    "memory": "6144" 
 }
