@@ -1,0 +1,32 @@
+{
+    "requiresCompatibilities": ["FARGATE"],
+    "family": "ecs",
+    "containerDefinitions": [
+        {
+            "name": "java-app",
+            "image": "AWS_ACCOUNT_ID.dkr.ecr.us-east-2.amazonaws.com/java-app:latest",
+            "essential": true,
+            "memory": "6 GB",
+            "cpu": "2 vCPU",
+            "portMappings": [
+                {
+                    "containerPort": 8081,
+                    "hostPort": 8081,
+                    "protocol": "tcp"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/java-app-logs",
+                    "awslogs-region": "us-east-2",
+                    "awslogs-stream-prefix": "java-app",
+                    "awslogs-create-group": "true" 
+                }
+            }
+        }
+    ],
+    "volumes": [],
+    "networkMode": "awsvpc",
+    "executionRoleArn": "arn:aws:iam::AWS_ACCOUNT_ID:role/ecsTaskExecutionRole"
+}
