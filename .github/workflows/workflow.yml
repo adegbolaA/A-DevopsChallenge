@@ -15,7 +15,7 @@ permissions:
 env:
   AWS_REGION: MY_REGION
   ECR_REPOSITORY: java-app
-  ECS_SERVICE: java-app-service
+  ECS_SERVICE: dev-cluster-service
   ECS_CLUSTER: devcluster
   ECS_TASK_DEFINITION: task_definition.json
   CONTAINER_NAME: java-app
@@ -142,5 +142,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-
+          service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
