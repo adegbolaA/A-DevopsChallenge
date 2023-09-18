@@ -4,7 +4,7 @@
     "containerDefinitions": [
         {
             "name": "java-app",
-            "image": "AWS_ACCOUNT_ID.dkr.ecr.us-east-2.amazonaws.com/java-app:latest",
+            "image": "908459128553.dkr.ecr.us-east-2.amazonaws.com/java-app:latest",
             "essential": true,
             "memory": 6144,
             "cpu": "2048",
@@ -28,5 +28,5 @@
     ],
     "volumes": [],
     "networkMode": "awsvpc",
-    "executionRoleArn": "arn:aws:iam::AWS_ACCOUNT_ID:role/ecsTaskExecutionRole"
+    "executionRoleArn": "arn:aws:iam::908459128553:role/ecsTaskExecutionRole"
 }
