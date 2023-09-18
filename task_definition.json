@@ -6,9 +6,6 @@
             "name": "java-app",
             "image": "908459128553.dkr.ecr.us-east-2.amazonaws.com/java-app:latest",
             "essential": true,
-            "memory": 512,
-            "cpu": 256,
-            
             "portMappings": [
                 {
                     "containerPort": 8081,
@@ -22,13 +19,13 @@
                     "awslogs-group": "/ecs/java-app-logs",
                     "awslogs-region": "us-east-2",
                     "awslogs-stream-prefix": "java-app",
-                    "awslogs-create-group": "true" 
+                    "awslogs-create-group": "true"
                 }
             }
         }
     ],
     "networkMode": "awsvpc",
     "executionRoleArn": "arn:aws:iam::908459128553:role/ecsTaskExecutionRole",
-    "cpu": "256", 
-    "memory": "1024" 
+    "cpu": "256",
+    "memory": "1024"
 }
