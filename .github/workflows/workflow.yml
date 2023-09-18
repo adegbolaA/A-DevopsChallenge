@@ -1,6 +1,4 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
 name: Conversion App CI/CD
 run-name: ${{ github.actor }}
 on:
@@ -15,14 +13,12 @@ permissions:
   contents: read
 
 env:
-  AWS_REGION: MY_REGION # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: java-app # set this to your Amazon ECR repository name
-  ECS_SERVICE: MY_ECS_SERVICE # set this to your Amazon ECS service name
-  ECS_CLUSTER: DevCluster # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: task_definition.json # set this to the path to your Amazon ECS task definition
-    # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: java-app # set this to the name of the container in the
-    # containerDefinitions section of your task definition
+  AWS_REGION: MY_REGION
+  ECR_REPOSITORY: java-app 
+  ECS_SERVICE: java-app-service 
+  ECS_CLUSTER: DevCluster 
+  ECS_TASK_DEFINITION: task_definition.json 
+  CONTAINER_NAME: java-app 
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -146,5 +142,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-
+          service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
