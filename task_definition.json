@@ -6,8 +6,8 @@
             "name": "java-app",
             "image": "AWS_ACCOUNT_ID.dkr.ecr.us-east-2.amazonaws.com/java-app:latest",
             "essential": true,
-            "memory": "6 GB",
-            "cpu": "2 vCPU",
+            "memory": 6144, // Specify memory as a number (in MiB)
+            "cpu": "2048",  // Specify CPU as a number (in CPU units)
             "portMappings": [
                 {
                     "containerPort": 8081,
