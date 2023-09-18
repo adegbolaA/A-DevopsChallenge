@@ -2,7 +2,7 @@
     "family": "ecs_task_def",
     "containerDefinitions": [
         {
-            "name": "java-container",
+            "name": "java-app",
             "image": "908459128553.dkr.ecr.us-east-2.amazonaws.com/java-app:latest",
             "cpu": 0,
             "portMappings": [
