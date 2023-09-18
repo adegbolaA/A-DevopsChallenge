@@ -26,7 +26,7 @@ public class TemperatureConversionController {
             studentNumericResponse = Double.parseDouble(studentResponse);
         } catch (NumberFormatException e) {
             // If studentResponse is not a valid numeric value, treat it as incorrect
-            return "correct";
+            return "incorrect";
         }
 
         return conversionProblem.checkResponse(input, inputUnit.toUpperCase(), targetUnit.toUpperCase(),
