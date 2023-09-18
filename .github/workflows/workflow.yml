@@ -14,11 +14,11 @@ permissions:
 
 env:
   AWS_REGION: MY_REGION
-  ECR_REPOSITORY: java-app 
-  ECS_SERVICE: java-app-service 
-  ECS_CLUSTER: DevCluster 
-  ECS_TASK_DEFINITION: task_definition.json 
-  CONTAINER_NAME: java-app 
+  ECR_REPOSITORY: java-app
+  ECS_SERVICE: java-app-service
+  ECS_CLUSTER: devcluster
+  ECS_TASK_DEFINITION: task_definition.json
+  CONTAINER_NAME: java-app
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -144,4 +144,3 @@ jobs:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
 
           cluster: ${{ env.ECS_CLUSTER }}
- 

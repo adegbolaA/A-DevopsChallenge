@@ -1,11 +1,10 @@
 {
-    "requiresCompatibilities": ["FARGATE"],
-    "family": "ecs",
+    "family": "ecs_task_def",
     "containerDefinitions": [
         {
-            "name": "java-app",
+            "name": "java-container",
             "image": "908459128553.dkr.ecr.us-east-2.amazonaws.com/java-app:latest",
-            "essential": true,
+            "cpu": 0,
             "portMappings": [
                 {
                     "containerPort": 8081,
@@ -13,19 +12,31 @@
                     "protocol": "tcp"
                 }
             ],
+            "essential": true,
+            "entryPoint": [],
+            "command": [],
+            "environment": [],
+            "mountPoints": [],
+            "volumesFrom": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-group": "/ecs/java-app-logs",
+                    "awslogs-group": "/ecs/task_def",
                     "awslogs-region": "us-east-2",
-                    "awslogs-stream-prefix": "java-app",
-                    "awslogs-create-group": "true"
+                    "awslogs-stream-prefix": "ecs"
                 }
             }
         }
     ],
-    "networkMode": "awsvpc",
+    "taskRoleArn": "arn:aws:iam::908459128553:role/ecsTaskExecutionRole",
     "executionRoleArn": "arn:aws:iam::908459128553:role/ecsTaskExecutionRole",
-    "cpu": "256",
-    "memory": "1024"
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "3072",
+    "runtimePlatform": {
+        "operatingSystemFamily": "LINUX"
+    }
 }
