@@ -17,5 +17,5 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          MESSAGE="New GitHub Release: ${{ github.repository }}/${{ github.event.release.tag_name }}\n\n${{ github.event.release.html_url }}\n\n<!channel>"
+          MESSAGE="New GitHub Release: ${{ github.repository }}/${{ github.event.release.tag_name }}\n\n${{ github.event.release.html_url }}\n\n<!here>"
           curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$MESSAGE\"}" $SLACK_WEBHOOK_URL
