@@ -9,3 +9,4 @@ updates:
     directory: "/ChallengePackage/devops-project" # Location of package manifests
     schedule:
       interval: "weekly"
+      
