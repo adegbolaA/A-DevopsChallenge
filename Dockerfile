@@ -1,5 +1,5 @@
 # Dockerfile
-FROM openjdk:11-jre-slim
+FROM openjdk:22-ea-26
 
 WORKDIR /app
 
