@@ -5,7 +5,7 @@
 # Checking if pip is installed
 if ! command -v pip3 &> /dev/null; then
     echo "Installing pip..."
-    sudo apt-get install -y python3-pip 
+    sudo apt-get install -y python3-pip
 fi
 # Install pre-commit using pip
 echo "Installing pre-commit..."
