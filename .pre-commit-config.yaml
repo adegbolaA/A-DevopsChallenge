@@ -11,10 +11,11 @@ repos:
   - id: gitleaks
     name: gitleaks
     entry: go
-    args: ['build', '-o', '/path/gitleaks', 'github.com/zricethezav/gitleaks/v8/cmd']
+    args: ['build', '-o', '${ChallengePackage/devops-project}/gitleaks', 'github.com/zricethezav/gitleaks/v8/cmd']
     language: system
     pass_filenames: false
     files: ^gitleaks$
+
 
 
 
