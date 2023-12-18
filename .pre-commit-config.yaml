@@ -6,12 +6,12 @@ repos:
   - id: end-of-file-fixer
   - id: trailing-whitespace
 - repo: https://github.com/gitleaks/gitleaks
-  rev: v8.18.1
+  rev: v8.17.0
   hooks:
   - id: gitleaks
     name: gitleaks
     entry: docker
-    args: ['run', '-v', '/home/ec2-user/A-DevopsChallenge/ChallengePackage/devops-project:/go/src/github.com/gitleaks/gitleaks', 'golang:1.19', 'sh', '-c', 'cd /go/src/github.com/gitleaks/gitleaks && go build -o /go/bin/gitleaks ./cmd/gitleaks']
+    args: ['run', '-v', '/home/ec2-user/A-DevopsChallenge/ChallengePackage/devops-project:/go/src/github.com/gitleaks/gitleaks', 'golang:1.19', 'sh', '-c', 'git clone --branch v8.18.1 https://github.com/zricethezav/gitleaks.git /go/src/github.com/gitleaks/gitleaks && cd /go/src/github.com/gitleaks/gitleaks && go build -o /go/bin/gitleaks ./cmd/gitleaks']
     language: system
     pass_filenames: false
     files: '.*'
