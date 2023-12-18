@@ -5,11 +5,6 @@ repos:
   - id: check-yaml
   - id: end-of-file-fixer
   - id: trailing-whitespace
-- repo: https://github.com/sevntu-checkstyle/sevntu.checkstyle
-  rev: v1.38.0
-  hooks:
-  - id: sevntu-checkstyle
-    args: ['--config', 'sun_checks.xml']
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v2.4.0
   hooks:
