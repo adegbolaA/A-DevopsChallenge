@@ -5,8 +5,18 @@ repos:
   - id: check-yaml
   - id: end-of-file-fixer
   - id: trailing-whitespace
+- repo: https://github.com/jeremylong/DependencyCheck
+  rev: v6.2.2
+  hooks:
   - id: dependency-check
     args: ['--failOnCVSS', '9.0']
+- repo: https://github.com/zaproxy/community-scripts
+  rev: v1.0.0
+  hooks:
+  - id: zap-scan
+    args: ['--spider', '--ajax']
+    files: .java$
+    language: jav
 - repo: https://github.com/google/google-java-format
   rev: "1.11"
   hooks:
