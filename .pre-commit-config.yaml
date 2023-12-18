@@ -5,10 +5,6 @@ repos:
   - id: check-yaml
   - id: end-of-file-fixer
   - id: trailing-whitespace
-- repo: https://github.com/google/google-java-format
-  rev: RELEASE_1_11
-  hooks:
-  - id: google-java-format
 - repo: https://github.com/sevntu-checkstyle/sevntu.checkstyle
   rev: v1.38.0
   hooks:
