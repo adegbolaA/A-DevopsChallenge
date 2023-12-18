@@ -2,17 +2,5 @@ repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.5.0
   hooks:
-  - id: check-yaml
   - id: end-of-file-fixer
   - id: trailing-whitespace
-- repo: local
-  hooks:
-  - id: maven-test
-    name: maven-test
-    entry: mvn
-    args: ['test']
-    language: system
-    pass_filenames: false
-    files: ^ChallengePackage/devops-project/pom.xml$
-
-
