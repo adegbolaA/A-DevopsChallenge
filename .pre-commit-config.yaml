@@ -11,7 +11,7 @@ repos:
   - id: gitleaks
     name: gitleaks
     entry: docker
-    args: ['run', '-v', '/home/ec2-user/A-DevopsChallenge/ChallengePackage/devops-project:/go/src/github.com/gitleaks/gitleaks', 'golang:1.19', 'sh', '-c', 'export GO111MODULE=on && go install github.com/zricethezav/gitleaks/v8/cmd/gitleaks@v8.18.1']
+    args: ['run', '-v', '/home/ec2-user/A-DevopsChallenge/ChallengePackage/devops-project:/go/src/github.com/gitleaks/gitleaks', 'golang:1.19', 'sh', '-c', 'cd /go/src/github.com/gitleaks/gitleaks && go build -o /go/bin/gitleaks ./cmd/gitleaks']
     language: system
     pass_filenames: false
     files: '.*'
