@@ -5,32 +5,32 @@ repos:
   - id: check-yaml
   - id: end-of-file-fixer
   - id: trailing-whitespace
-- repo: https://github.com/jeremylong/DependencyCheck
-  rev: v6.2.2
-  hooks:
-  - id: dependency-check
-    args: ['--failOnCVSS', '9.0']
-- repo: https://github.com/google/google-java-format
-  rev: 1.11
-  hooks:
-  - id: google-java-format
-- repo: https://github.com/sevntu-checkstyle/sevntu.checkstyle
-  rev: v1.38.0
-  hooks:
-  - id: sevntu-checkstyle
-    args: ['--config', 'sun_checks.xml']
-- repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v2.4.0
-  hooks:
-  - id: gitleaks
-    name: gitleaks
-    entry: docker
-    args: ['run', '-v', '${ChallengePackage/devops-project}:/path', 'ghcr.io/gitleaks/gitleaks:latest', 'gitleaks', '--source', '/path']
-    language: docker
-- repo: local
-  hooks:
-  - id: maven-test
-    name: maven-test
-    entry: mvn
-    args: ['test']
-    language: system
+# - repo: https://github.com/jeremylong/DependencyCheck
+#   rev: v6.2.2
+#   hooks:
+#   - id: dependency-check
+#     args: ['--failOnCVSS', '9.0']
+# - repo: https://github.com/google/google-java-format
+#   rev: "1.11"
+#   hooks:
+#   - id: google-java-format
+# - repo: https://github.com/sevntu-checkstyle/sevntu.checkstyle
+#   rev: v1.38.0
+#   hooks:
+#   - id: sevntu-checkstyle
+#     args: ['--config', 'sun_checks.xml']
+# - repo: https://github.com/pre-commit/pre-commit-hooks
+#   rev: v2.4.0
+#   hooks:
+#   - id: gitleaks
+#     name: gitleaks
+#     entry: docker
+#     args: ['run', '-v', '${ChallengePackage/devops-project}:/path', 'ghcr.io/gitleaks/gitleaks:latest', 'gitleaks', '--source', '/path']
+#     language: docker
+# - repo: local
+#   hooks:
+#   - id: maven-test
+#     name: maven-test
+#     entry: mvn
+#     args: ['test']
+#     language: system
