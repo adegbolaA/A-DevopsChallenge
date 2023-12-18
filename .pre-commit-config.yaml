@@ -10,11 +10,12 @@ repos:
   hooks:
   - id: gitleaks
     name: gitleaks
-    entry: go
-    args: ['build', '-o', '${ChallengePackage/devops-project}/gitleaks', 'github.com/zricethezav/gitleaks/v8/cmd']
+    entry: docker
+    args: ['run', '-v', '${ChallengePackage/devops-project}:/go/src/github.com/gitleaks/gitleaks', 'golang:1.19', 'sh', '-c', 'cd /go/src/github.com/gitleaks/gitleaks && go build -o /go/src/github.com/gitleaks/gitleaks/bin/gitleaks ./cmd']
     language: system
     pass_filenames: false
     files: '.*'
+
 
 
 
