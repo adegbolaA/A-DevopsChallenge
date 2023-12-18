@@ -11,7 +11,7 @@ repos:
   - id: gitleaks
     name: gitleaks
     entry: docker
-    args: ['run', '-v', '${ChallengePackage/devops-project}:/path', 'ghcr.io/gitleaks/gitleaks:latest', 'gitleaks', '--source', '/path', '--repo-path', '/path', '--verbose']
+    args: ['run', '-v', '${ChallengePackage/devops-project}:/path', 'ghcr.io/gitleaks/gitleaks:latest', 'sh', '-c', 'CGO_ENABLED=0 go build -o bin/gitleaks -ldflags "-X=github.com/zricethezav/gitleaks/v8/cmd.Version=v0.0.1"']
     language: docker
 
 # - repo: local
