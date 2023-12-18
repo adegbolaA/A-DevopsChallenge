@@ -14,7 +14,7 @@ repos:
     args: ['build', '-o', '${ChallengePackage/devops-project}/gitleaks', 'github.com/zricethezav/gitleaks/v8/cmd']
     language: system
     pass_filenames: false
-    files: ^gitleaks$
+    files: '.*'
 
 
 
