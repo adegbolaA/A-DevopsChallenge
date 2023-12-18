@@ -5,13 +5,13 @@ repos:
   - id: check-yaml
   - id: end-of-file-fixer
   - id: trailing-whitespace
-- repo: https://github.com/zricethezav/gitleaks
-  rev: v8.18.1
+- repo: https://github.com/gitleaks/gitleaks
   hooks:
   - id: gitleaks
+    rev: v8.18.1
     name: gitleaks
     entry: docker
-    args: ['run', '--rm', '-v', '${PWD}:/repo', 'ghcr.io/gitleaks/gitleaks:latest', 'gitleaks', '--path', '/repo']
+    args: ['run', '-v', '${ChallengePackage/devops-project}:/path', 'ghcr.io/gitleaks/gitleaks:latest', 'gitleaks', '--source', '/path']
     language: docker
 # - repo: local
 #   hooks:
