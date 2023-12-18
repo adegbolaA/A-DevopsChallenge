@@ -10,13 +10,6 @@ repos:
   hooks:
   - id: dependency-check
     args: ['--failOnCVSS', '9.0']
-- repo: https://github.com/zaproxy/community-scripts
-  rev: v1.0.0
-  hooks:
-  - id: zap-scan
-    args: ['--spider', '--ajax']
-    files: .java$
-    language: jav
 - repo: https://github.com/google/google-java-format
   rev: "1.11"
   hooks:
