@@ -6,9 +6,9 @@ repos:
   - id: end-of-file-fixer
   - id: trailing-whitespace
 - repo: https://github.com/gitleaks/gitleaks
+  rev: v8.18.1
   hooks:
   - id: gitleaks
-    rev: v8.18.1
     name: gitleaks
     entry: docker
     args: ['run', '-v', '${ChallengePackage/devops-project}:/path', 'ghcr.io/gitleaks/gitleaks:latest', 'gitleaks', '--source', '/path']
