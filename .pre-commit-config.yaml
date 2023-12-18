@@ -11,7 +11,7 @@ repos:
   - id: gitleaks
     name: gitleaks
     entry: docker
-    args: ['run', '-v', '/A-DevopsChallenge/ChallengePackage/devops-project:/go/src/github.com/gitleaks/workdir', 'golang:1.19', 'sh', '-c', 'rm -rf /go/src/github.com/gitleaks/workdir && mkdir -p /go/src/github.com/gitleaks/workdir && cd /go/src/github.com/gitleaks/workdir && git clone --branch v8.18.1 https://github.com/zricethezav/gitleaks.git && cd gitleaks/v8 && go build -o /go/bin/gitleaks ./cmd/gitleaks']
+    args: ['run', '-v', '/A-DevopsChallenge/ChallengePackage/devops-project:/go/src/github.com/gitleaks/workdir', 'golang:1.19', 'sh', '-c', 'cd /go/src/github.com/gitleaks/workdir && git clean -fd && git clone --branch v8.18.1 https://github.com/zricethezav/gitleaks.git && cd gitleaks/v8 && go build -o /go/bin/gitleaks ./cmd/gitleaks']
     language: system
     pass_filenames: false
     files: '.*'
