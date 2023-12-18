@@ -5,26 +5,10 @@ repos:
   - id: check-yaml
   - id: end-of-file-fixer
   - id: trailing-whitespace
-- repo: https://github.com/gitleaks/gitleaks
-  rev: v8.17.0
+- repo: local
   hooks:
-  - id: gitleaks
-    name: gitleaks
-    entry: docker
-    args: ['run', '-v', '/A-DevopsChallenge/ChallengePackage/devops-project:/go/src/github.com/gitleaks/workdir', 'golang:1.19', 'sh', '-c', 'if [ ! -d "/go/src/github.com/gitleaks/workdir/.git" ]; then git init; fi && git clean -fd && git remote add origin https://github.com/zricethezav/gitleaks.git && git fetch --depth 1 origin v8.18.1 && git checkout FETCH_HEAD && cd cmd/gitleaks && go build -o /go/bin/gitleaks .']
+  - id: maven-test
+    name: maven-test
+    entry: mvn
+    args: ['test']
     language: system
-    pass_filenames: false
-    files: '.*'
-
-
-
-
-
-
-# - repo: local
-#   hooks:
-#   - id: maven-test
-#     name: maven-test
-#     entry: mvn
-#     args: ['test']
-#     language: system
