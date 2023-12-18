@@ -12,3 +12,7 @@ repos:
     entry: mvn
     args: ['test']
     language: system
+    pass_filenames: false
+    files: ^ChallengePackage/devops-project/pom.xml$
+
+
