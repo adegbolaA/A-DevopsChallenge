@@ -34,7 +34,7 @@ pipeline{
                 script{
                      gitCheckout(
                         branch: "main",
-                        url: 'https://github.com/adegbolaA/A-DevopsChallenge.git'
+                        url: 'https://github.com/CodeHubInnovations/A-DevopsChallenge.git'
                      )
                     
                  }
