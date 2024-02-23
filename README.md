@@ -20,7 +20,7 @@ If the input data provided by the teacher is invalid or incomplete, the system w
 Usage
 The Unit Conversion Grading System can be used via different interfaces:
 
-1. Command Line Interface (CLI) 
+1. Command Line Interface (CLI)
 
 
 Teachers can use the CLI to enter input values and view the grading results directly in their terminal.
