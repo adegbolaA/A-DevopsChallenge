@@ -130,7 +130,7 @@ pipeline{
            
         }
 
-        stage ('Docker Images Push: ECR'){
+       /* stage ('Docker Images Push: ECR'){
             when {expression { params.action == 'create' }}
             steps{
                 script{
@@ -146,6 +146,7 @@ pipeline{
                 }
             }
         }
+        */
 
 
 
